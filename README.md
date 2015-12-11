@@ -11,7 +11,7 @@ To have access to the library, add the dependency to your build.gradle:
 
 ```java
 
-	    compile 'com.androidessence:materialdesignspecs:1.0.0'
+	    compile 'com.androidessence:materialdesignspecs:1.0.1'
 
 ```
 
