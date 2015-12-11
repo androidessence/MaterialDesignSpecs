@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Use the colors from the library-->
+    <color name="colorPrimary">@color/mds_indigo_500</color>
+    <color name="colorPrimaryDark">@color/mds_indigo_700</color>
+    <color name="colorAccent">@color/mds_pink_A200</color>
 </resources>
