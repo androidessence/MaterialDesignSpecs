@@ -1,4 +1,4 @@
-package com.androidessence.materialdesignspeclibrary;
+package com.androidessence.materialdesignspecs;
 
 import org.junit.Test;
 

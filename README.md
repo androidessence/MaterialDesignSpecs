@@ -11,7 +11,7 @@ To have access to the library, add the dependency to your build.gradle:
 
 ```java
 
-	    compile 'com.androidessence:materialdesignspecs:1.0.1'
+	    compile 'com.androidessence:materialdesignspecs:1.0.2'
 
 ```
 
@@ -139,5 +139,7 @@ License
 Material Design Specs Lib is available under the [MIT License](https://opensource.org/licenses/MIT).
 
 When you use it, don't forget to mention us ;) 
+
+
 
 Happy coding!

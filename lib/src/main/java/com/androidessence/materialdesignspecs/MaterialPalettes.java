@@ -1,4 +1,6 @@
-package com.androidessence.materialdesignspeclibrary;
+package com.androidessence.materialdesignspecs;
+
+import com.androidessence.materialdesignspeclibrary.R;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -143,6 +145,11 @@ public class MaterialPalettes {
      * List of colors that have been randomly generated to avoid repeating colors.
      */
     private static List<Integer> randomList;
+
+    /**
+     * List that contains all the colors.
+     */
+    private static List<Integer> allColors;
 
     /**
      * Number of times we have created a random color. If we hit the limit we must start over.
@@ -333,17 +340,13 @@ public class MaterialPalettes {
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
     public static Integer getRandomColorNonRepeating() throws IllegalAccessException {
-        if(randomList == null || randomList.isEmpty() || randomCount > randomList.size()) {
+        if(randomList == null || randomList.isEmpty() || randomCount >= randomList.size()) {
             initColorRandomizer();
         }
 
         // Get color name from our random list
         int colorIndex = randomList.get(randomCount++);
-        String colorName = ALL_COLOR_NAMES[colorIndex];
-
-        // Get random color for this name
-        // Use non accent level
-        return getRandomColorByName(colorName, false);
+        return getAllColors().get(colorIndex);
     }
 
     /**
@@ -367,7 +370,12 @@ public class MaterialPalettes {
      * @return A list of color resources for all available material design colors.
      */
     public static List<Integer> getAllColors() throws IllegalAccessException{
-        List<Integer> colorList = new ArrayList<>();
+        if (allColors == null) {
+            allColors = new ArrayList<>();
+        }
+        if (allColors.size() > 0) {
+            return allColors;
+        }
 
         Field[] fields = R.color.class.getFields();
 
@@ -375,17 +383,17 @@ public class MaterialPalettes {
         for(Field field : fields) {
             String key = field.getName();
             if(key.startsWith(PREFIX)) {
-                colorList.add(field.getInt(null));
+                allColors.add(field.getInt(null));
             }
         }
 
-        return colorList;
+        return allColors;
     }
 
     /**
      * Initializes the list used to keep track of whether or not a color has been returned yet.
      */
-    private static void initColorRandomizer() {
+    private static void initColorRandomizer() throws IllegalAccessException {
         if(randomList == null) {
             randomList = new ArrayList<>();
         }
@@ -394,7 +402,9 @@ public class MaterialPalettes {
             randomList.clear();
         }
 
-        for(int i = 0; i < ALL_COLOR_NAMES.length; i++) {
+        int size = getAllColors().size();
+
+        for(int i = 0; i < size; i++) {
             randomList.add(i);
         }
 

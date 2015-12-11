@@ -1,4 +1,4 @@
-package com.androidessence.materialdesignspeclibrary;
+package com.androidessence.materialdesignspecs;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
