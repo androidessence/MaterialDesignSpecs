@@ -178,8 +178,18 @@ public class TestMaterialPalettes extends AndroidTestCase{
      */
     public void testGetRandomColor() {
         try {
-            Integer randomColor = MaterialPalettes.getRandomColor();
-            assertTrue(MaterialPalettes.getAllColors().contains(randomColor));
+            ArrayList<Integer> valueCheck = new ArrayList<Integer>();
+            int colorSize = MaterialPalettes.getAllColors().size();
+
+            for (int i = 0; i < colorSize; i++) {
+                Integer color = MaterialPalettes.getRandomColorNonRepeating();
+                if (valueCheck.contains(color)) {
+                    fail();
+                }
+                else {
+                    valueCheck.put(color);
+                }
+            }
         } catch(IllegalAccessException iae) {
             fail();
         }
