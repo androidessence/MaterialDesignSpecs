@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Elevations as per https://www.google.com/design/spec/what-is-material/elevation-shadows.html#elevation-shadows-elevation-android- -->
+    <dimen name="mds_elevation_dialog">24dp</dimen>
+    <dimen name="mds_elevation_picker">24dp</dimen>
+    <dimen name="mds_elevation_navigation_view">16dp</dimen>
+    <dimen name="mds_elevation_modal_bottom_sheet">16dp</dimen>
+    <dimen name="mds_elevation_fab_pressed">12dp</dimen>
+    <dimen name="mds_elevation_submenu">9dp</dimen>
+    <dimen name="mds_elevation_menu">8dp</dimen>
+    <dimen name="mds_elevation_card_picked_up">8dp</dimen>
+    <dimen name="mds_elevation_raised_button_pressed">8dp</dimen>
+    <dimen name="mds_elevation_fab_resting">6dp</dimen>
+    <dimen name="mds_elevation_snackbar">6dp</dimen>
+    <dimen name="mds_elevation_appbar">4dp</dimen>
+    <dimen name="mds_elevation_refresh_indicator">3dp</dimen>
+    <dimen name="mds_elevation_search_bar_scrolled">3dp</dimen>
+    <dimen name="mds_elevation_card_resting">2dp</dimen>
+    <dimen name="mds_elevation_raised_button_resting">2dp</dimen>
+    <dimen name="mds_elevation_search_bar_resting">2dp</dimen>
+    <dimen name="mds_elevation_switch">1dp</dimen>
+
+</resources>
