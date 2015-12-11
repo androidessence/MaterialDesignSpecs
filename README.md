@@ -66,8 +66,8 @@ You'll also have access to some static helper methods like:
 To specify a color name or level, use the available static strings such as:
 
 ```java
-   MaterialPalettes.RED
-   MaterialPalettes.LEVEL_500
+    MaterialPalettes.RED
+    MaterialPalettes.LEVEL_500
 ```
 
 Colors
