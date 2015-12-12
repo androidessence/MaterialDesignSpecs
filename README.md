@@ -69,6 +69,13 @@ Please be aware that the color returned by the methods above is the color of the
 	myTextView.setTextColor(getResources().getColor(randomColor));
 ```
 
+Sample
+-----
+
+To see the library in action, this is the output of getting all 500 level colors and displaying them in individual TextViews:
+
+![sample](https://dl2.pushbulletusercontent.com/EFU6JTPJyw7FNA5cYXsY7NTg5EpstGNp/Screenshot_20151211-213913.png)
+
 Colors
 -----
 
