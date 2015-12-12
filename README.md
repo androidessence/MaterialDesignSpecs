@@ -10,7 +10,17 @@ Usage
 To have access to the library, add the dependency to your build.gradle:
 
 ```java
-	compile 'com.androidessence:materialdesignspecs:1.0.2'
+	compile 'com.androidessence:materialdesignspecs:1.0.3'
+```
+
+At the time of publication, the library has not yet been linked to JCenter, so you will also have to add the link to our Maven repository as well:
+
+```java
+	repositories {
+    	maven {
+        	url  "http://dl.bintray.com/androidessence/maven"
+    	}
+	}
 ```
 
 Now, you'll be able to access the full color pallete from material design, either by XML, or programatically.
@@ -62,7 +72,7 @@ To specify a color name or level, use the available static strings such as:
     MaterialPalettes.LEVEL_500
 ```
 
-Please be aware that the color returned by the methods above is the color of the resource identifier, not the color itself. So, in order to give a TextView a random text color, it would be done like this:
+Please be aware that the Integer returned by the methods above is the Integer of the resource identifier, not the color itself. So, in order to give a TextView a random text color, it would be done like this:
 
 ```java
 	Integer randomColor = MaterialPalettes.getRandomColor();
@@ -124,6 +134,8 @@ And the accent ones are:
 Example of a color: `mds_orange_A400`.
 
 **Reminder:** brown, grey, and bluegrey don't have accent colors.
+
+The full color palettes as well as some more information on how to use them can be found in Google's [Material Design Specifications](https://www.google.com/design/spec/style/color.html#color-color-palette).
 
 
 Elevation values
