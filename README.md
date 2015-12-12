@@ -10,9 +10,7 @@ Usage
 To have access to the library, add the dependency to your build.gradle:
 
 ```java
-
-	    compile 'com.androidessence:materialdesignspecs:1.0.2'
-
+	compile 'com.androidessence:materialdesignspecs:1.0.2'
 ```
 
 Now, you'll be able to access the full color pallete from material design, either by XML, or programatically.
@@ -20,7 +18,6 @@ Now, you'll be able to access the full color pallete from material design, eithe
 - **XML way**
 
 ```xml
-	
 	<!-- You can use it in any view or other XML resources -->
 	<!-- Access the resources by using @color/ or @dimen/ -->
 	<View
@@ -28,13 +25,11 @@ Now, you'll be able to access the full color pallete from material design, eithe
 	    android:layout_height="wrap_content"
 	    android:background="@color/mds_red_500"
 	    android:elevation="@dimen/mds_elevation_card_resting"/>
-
 ```
 
 - **Java way**
 
 ```java
-	
 	// Access it through the android R file. Like the examples below.
 	R.color.mds_red_500
 	R.color.mds_blue_700
@@ -45,13 +40,11 @@ Now, you'll be able to access the full color pallete from material design, eithe
 	R.dimen.mds_elevation_dialog
 	R.dimen.mds_elevation_navigation_view
 	R.dimen.mds_elevation_menu
-
 ```
 
 You'll also have access to some static helper methods like:
 
 ```java
-
 	getColorsByName(String colorName) // Returns a List<Integer> of colors with the given name.
 	// The methods below returns an Integer to use along your code.
 	getRandomColor()
@@ -60,7 +53,6 @@ You'll also have access to some static helper methods like:
 	getRandomColorByName(String colorName)
 	getRandomColorNonRepeating()
 	// And a few more!
-
 ```
 
 To specify a color name or level, use the available static strings such as:
@@ -70,12 +62,17 @@ To specify a color name or level, use the available static strings such as:
     MaterialPalettes.LEVEL_500
 ```
 
+Please be aware that the color returned by the methods above is the color of the resource identifier, not the color itself. So, in order to give a TextView a random text color, it would be done like this:
+
+```java
+	Integer randomColor = MaterialPalettes.getRandomColor();
+	myTextView.setTextColor(getResources().getColor(randomColor));
+```
+
 Colors
 -----
 
 Here's the list of the colors names. Change "X" to the color level, like "50" or "A100".
-
-
 
 - mds_red_X
 - mds_pink_X
