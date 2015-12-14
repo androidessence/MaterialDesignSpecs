@@ -10,7 +10,7 @@ Usage
 To have access to the library, add the dependency to your build.gradle:
 
 ```java
-	compile 'com.androidessence:materialdesignspecs:1.0.3'
+	compile 'com.androidessence:materialdesignspecs:1.0.4'
 ```
 
 At the time of publication, the library has not yet been linked to JCenter, so you will also have to add the link to our Maven repository as well:
