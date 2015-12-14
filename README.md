@@ -153,6 +153,8 @@ Material Design Specs Lib was created with **<3** by:
 - [Adam McNeilly](https://github.com/AdamMc331)
 - [Maurício Pessoa](https://github.com/Mauker1)
 
+With special thanks to [Eric Cugota](https://github.com/tryadelion) for helping us get this into Bintray and make it available for you.
+
 And it's released under [Android Essence blog](http://androidessence.com/).
 
 License
