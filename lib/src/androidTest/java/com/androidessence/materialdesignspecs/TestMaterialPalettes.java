@@ -178,7 +178,7 @@ public class TestMaterialPalettes extends AndroidTestCase{
      */
     public void testGetRandomColor() {
         try {
-            ArrayList<Integer> valueCheck = new ArrayList<Integer>();
+            ArrayList<Integer> valueCheck = new ArrayList<>();
             int colorSize = MaterialPalettes.getAllColors().size();
 
             Log.d("RandomTest","Color size:" + colorSize);
