@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * Utility functions for pulling various material design color palettes.
  *
- * Created by adammcneilly on 11/26/15.
+ * Created by adammcneilly and mauker on 11/26/15.
  */
 public class MaterialPalettes {
     // Our variables
@@ -410,5 +410,9 @@ public class MaterialPalettes {
 
         Collections.shuffle(randomList);
         randomCount = 0;
+    }
+
+    private static List<String> getAllColorNames() {
+        return new ArrayList<>(Arrays.asList(ALL_COLOR_NAMES));
     }
 }

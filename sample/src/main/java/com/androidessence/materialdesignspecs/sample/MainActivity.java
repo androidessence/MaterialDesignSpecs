@@ -1,18 +1,11 @@
 package com.androidessence.materialdesignspecs.sample;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.androidessence.materialdesignspecs.MaterialPalettes;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,29 +17,29 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Get the LinearLayout used to display our TextViews
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_layout);
-
-        try {
-            // Get all 500 level colors.
-            List<Integer> fiveHundredColors = MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500);
-
-            // For each color, create a text view, set its text color, and display
-            for(Integer color : fiveHundredColors) {
-                TextView textView = new TextView(this);
-                textView.setText("This is a 500 level color.");
-                // getResources().getColor() was deprecated in API 23.
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    textView.setTextColor(getColor(color));
-                } else {
-                    textView.setTextColor(getResources().getColor(color));
-                }
-                linearLayout.addView(textView);
-            }
-
-        } catch(IllegalAccessException iae) {
-            // Sample - Do nothing, not important. If it fails we will figure out why.
-        }
+//        // Get the LinearLayout used to display our TextViews
+//        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_layout);
+//
+//        try {
+//            // Get all 500 level colors.
+//            List<Integer> fiveHundredColors = MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500);
+//
+//            // For each color, create a text view, set its text color, and display
+//            for(Integer color : fiveHundredColors) {
+//                TextView textView = new TextView(this);
+//                textView.setText("This is a 500 level color.");
+//                // getResources().getColor() was deprecated in API 23.
+//                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    textView.setTextColor(getColor(color));
+//                } else {
+//                    textView.setTextColor(getResources().getColor(color));
+//                }
+//                linearLayout.addView(textView);
+//            }
+//
+//        } catch(IllegalAccessException iae) {
+//            // Sample - Do nothing, not important. If it fails we will figure out why.
+//        }
     }
 
     @Override
