@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -412,7 +413,29 @@ public class MaterialPalettes {
         randomCount = 0;
     }
 
-    private static List<String> getAllColorNames() {
-        return new ArrayList<>(Arrays.asList(ALL_COLOR_NAMES));
+    private static void sortFields(Field[] fields) {
+        final AlphaNumComparator anComp = new AlphaNumComparator();
+
+        Arrays.sort(fields, new Comparator<Field>() {
+            @Override
+            public int compare(Field lhs, Field rhs) {
+                String lhss = lhs.getName();
+                String rhss = rhs.getName();
+
+                return anComp.compare(lhss,rhss);
+            }
+        });
     }
+
+    public static Field[] getFields() {
+        return R.color.class.getFields();
+    }
+
+//    private static List<String> getAllColorNames(boolean sorted) {
+//        List<String> colors = Arrays.asList(ALL_COLOR_NAMES);
+//        if (sorted) {
+//            Arrays.sort(ALL_COLOR_NAMES);
+//        }
+//        return new ArrayList<>(Arrays.asList(ALL_COLOR_NAMES));
+//    }
 }
