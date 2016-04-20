@@ -84,7 +84,7 @@ Sample
 
 To see the library in action, this is the output of getting all 500 level colors and displaying them in individual TextViews:
 
-<img src='https://dl2.pushbulletusercontent.com/EFU6JTPJyw7FNA5cYXsY7NTg5EpstGNp/Screenshot_20151211-213913.png' width='400' height='640' />
+<img src='http://i.imgur.com/cfuweBv.png' width='400' height='640' />
 
 Colors
 -----
