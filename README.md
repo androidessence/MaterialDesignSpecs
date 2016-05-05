@@ -1,3 +1,5 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDesignSpecs-green.svg?style=true)](https://android-arsenal.com/details/1/3539)
+
 Material Design Specs Library
 =============
 
