@@ -1,7 +1,7 @@
 Material Design Specs Library
 =============
 
-This library provides an easy and quick way to access the entire material design color pallete and elevation values, along with some neat helper methods like random access to material design colors.
+This library provides an easy and quick way to access the entire material design color palette and elevation values, along with some neat helper methods like random access to material design colors.
 
 
 Usage
