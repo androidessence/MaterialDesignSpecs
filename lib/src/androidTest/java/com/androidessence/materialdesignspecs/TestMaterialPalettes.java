@@ -281,4 +281,18 @@ public class TestMaterialPalettes extends AndroidTestCase{
             fail();
         }
     }
+
+    /**
+     * Ensures that the color returned is within the bounds.
+     */
+    public void testGetRandomColorWithLimits() {
+        try {
+            // Get a random red color, make sure it's in the list
+            List<Integer> redColors = MaterialPalettes.getColorsByName(MaterialPalettes.RED);
+            Integer randomColor = MaterialPalettes.getRandomColorWithLimits(new String[] { MaterialPalettes.RED } );
+            assertTrue(redColors.contains(randomColor));
+        } catch(IllegalAccessException iae) {
+            fail();
+        }
+    }
 }
