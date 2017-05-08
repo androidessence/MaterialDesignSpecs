@@ -15,6 +15,7 @@ import java.util.Random;
  *
  * Created by adammcneilly and mauker on 11/26/15.
  */
+@SuppressWarnings("WeakerAccess")
 public class MaterialPalettes {
     // Our variables
     private static final String PREFIX = "mds_";
@@ -158,7 +159,7 @@ public class MaterialPalettes {
     private static int randomCount;
 
     private static final String MESSAGE_BAD_COLOR_NAME = "Invalid color name.";
-    private static final String MESSAGE_BAD_COLOR_LEVEL = "Invalid color level";
+    private static final String MESSAGE_BAD_COLOR_LEVEL = "Invalid color level.";
 
     /**
      * Builds a list of color resources for a Material Design color palette of a specific color.
@@ -362,6 +363,30 @@ public class MaterialPalettes {
         // Input check is in this function.
         List<Integer> colorList = getColorsByName(colorName, useAccents);
 
+        Random random = new Random();
+        return colorList.get(random.nextInt(colorList.size()));
+    }
+
+    /**
+     * Retrieves a random color from a list of accepted values.
+     * @param acceptedColorNames The color names that are acceptable for the random color returned.
+     * @return A color resource for a random Material Design color.
+     * @throws IllegalAccessException If a resource cannot be accessed.
+     */
+    public static Integer getRandomColorWithLimits(String[] acceptedColorNames) throws IllegalAccessException {
+        // First do error checking
+        if (!Arrays.asList(ALL_COLOR_NAMES).containsAll(Arrays.asList(acceptedColorNames))) {
+            throw new IllegalArgumentException(MESSAGE_BAD_COLOR_NAME);
+        }
+
+        // Get all possible colors
+        List<Integer> colorList = new ArrayList<>();
+
+        for (String name : acceptedColorNames) {
+            colorList.addAll(getColorsByName(name));
+        }
+
+        // Return a random color from the list.
         Random random = new Random();
         return colorList.get(random.nextInt(colorList.size()));
     }
