@@ -7,12 +7,14 @@ ext {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    def globalConfigurations = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfigurations["androidCompileSdkVersion"]
+    buildToolsVersion globalConfigurations["androidBuildToolsVersion"]
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 25
+        minSdkVersion globalConfigurations["androidMinSdkVersion"]
+        targetSdkVersion globalConfigurations["androidTargetSdkVersion"]
         versionCode 3
         versionName "1.0.5"
     }
