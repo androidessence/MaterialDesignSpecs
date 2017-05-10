@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,24 +23,38 @@ import java.util.List;
  */
 public class ColorDialog extends DialogFragment {
 
+    private static final String ARG_COLOR_LIST = "colorList";
+
     private OnColorSelectedListener listener;
+
+    public static ColorDialog newInstance(List<Integer> colorList) {
+        Bundle args = new Bundle();
+        args.putIntegerArrayList(ARG_COLOR_LIST, new ArrayList<>(colorList));
+
+        ColorDialog dialog = new ColorDialog();
+        dialog.setArguments(args);
+
+        return dialog;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_color, container, false);
 
-        try {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            ColorAdapter adapter = new ColorAdapter(MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500));
+        List<Integer> colorList = new ArrayList<>();
 
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (recyclerView != null) {
-                recyclerView.setLayoutManager(linearLayoutManager);
-                recyclerView.setAdapter(adapter);
-            }
-        } catch (IllegalAccessException iae) {
-            Log.e(ColorDialog.class.getSimpleName(), iae.getMessage(), iae);
+        if (getArguments() != null && getArguments().containsKey(ARG_COLOR_LIST)) {
+            colorList = getArguments().getIntegerArrayList(ARG_COLOR_LIST);
+        }
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        ColorAdapter adapter = new ColorAdapter(colorList);
+
+        RecyclerView recyclerView = (RecyclerView) view;
+        if (recyclerView != null) {
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(adapter);
         }
 
         return view;

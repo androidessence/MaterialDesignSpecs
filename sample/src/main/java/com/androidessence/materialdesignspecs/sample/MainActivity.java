@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.androidessence.materialdesignspecs.ColorDialog;
+import com.androidessence.materialdesignspecs.MaterialPalettes;
 
 public class MainActivity extends AppCompatActivity implements ColorDialog.OnColorSelectedListener {
 
@@ -34,9 +36,14 @@ public class MainActivity extends AppCompatActivity implements ColorDialog.OnCol
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_color_picker:
-                ColorDialog colorDialog = new ColorDialog();
-                colorDialog.setOnColorSelectedListener(this);
-                colorDialog.show(getSupportFragmentManager(), "ColorPicker");
+                try {
+                    ColorDialog colorDialog = ColorDialog.newInstance(MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500));
+                    colorDialog.setOnColorSelectedListener(this);
+                    colorDialog.show(getSupportFragmentManager(), "ColorPicker");
+                } catch (IllegalAccessException iae) {
+                    Log.e(MainActivity.class.getSimpleName(), iae.getMessage(), iae);
+                }
+
                 break;
         }
 
