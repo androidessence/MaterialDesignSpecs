@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class ColorDialog extends DialogFragment {
 
+    private OnColorSelectedListener listener;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +47,15 @@ public class ColorDialog extends DialogFragment {
         return view;
     }
 
+    public void setOnColorSelectedListener(OnColorSelectedListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnColorSelectedListener {
+        void onColorSelected(Integer color);
+    }
+
+    @SuppressWarnings("WeakerAccess")
     public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
         private List<Integer> colors = new ArrayList<>();
 
@@ -69,19 +80,31 @@ public class ColorDialog extends DialogFragment {
             return colors.size();
         }
 
-        public class ColorViewHolder extends RecyclerView.ViewHolder {
+        public class ColorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             private View colorView;
 
             public ColorViewHolder(View view) {
                 super(view);
 
                 colorView = view;
+                colorView.setOnClickListener(this);
             }
 
             public void bindColor(Integer color) {
                 int colorRes = ContextCompat.getColor(colorView.getContext(), color);
 
                 this.colorView.setBackgroundColor(colorRes);
+            }
+
+            @Override
+            public void onClick(View v) {
+                Integer color = colors.get(getAdapterPosition());
+
+                if (listener != null) {
+                    listener.onColorSelected(color);
+                }
+
+                dismiss();
             }
         }
     }
