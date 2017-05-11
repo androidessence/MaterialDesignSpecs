@@ -67,6 +67,55 @@ public class TestMaterialPalettes extends AndroidTestCase{
     }
 
     /**
+     * Verifies that the `getColorsByNames(String[] colorNames)` method returns the proper color counts.
+     *
+     * This test does not validate the data returned, only the expected counts.
+     */
+    public void testGetColorsByNames() {
+        // If we get a list of colors for all colors with accents, our results should be
+        // The number of color levels * number of colors
+        try {
+            List<Integer> allColorsWithAccents = MaterialPalettes.getColorsByNames(MaterialPalettes.COLORS_WITH_ACCENT_NAMES);
+            int expectedCount = MaterialPalettes.COLOR_LEVELS.length * MaterialPalettes.COLORS_WITH_ACCENT_NAMES.length;
+            assertEquals(expectedCount, allColorsWithAccents.size());
+        } catch(IllegalAccessException iae) {
+            fail();
+        }
+
+        // If we get a list of colors for all colors without accents, our results should be
+        // The number of non accent color levels * number of colors
+        try {
+            List<Integer> allColorsWithoutAccents = MaterialPalettes.getColorsByNames(MaterialPalettes.COLORS_WITHOUT_ACCENT_NAMES, false);
+            int expectedCount = MaterialPalettes.NON_ACCENT_COLOR_LEVELS.length * MaterialPalettes.COLORS_WITHOUT_ACCENT_NAMES.length;
+            assertEquals(expectedCount, allColorsWithoutAccents.size());
+        } catch(IllegalAccessException iae) {
+            fail();
+        }
+
+        // Test that we throw an IllegalArgumentException if an invalid string array is passed
+        try {
+            List<Integer> colors = MaterialPalettes.getColorsByNames(new String[] { "", "" });
+            // If we made it here, fail
+            fail();
+        } catch(IllegalArgumentException iae) {
+            // Do nothing, we passed!
+        } catch(IllegalAccessException iae1) {
+            fail();
+        }
+
+        // Test that we throw an IllegalArgumentException if null is passed
+        try {
+            List<Integer> colors = MaterialPalettes.getColorsByNames(null);
+            // If we made it here, fail
+            fail();
+        } catch(IllegalArgumentException iae) {
+            // Do nothing, we passed!
+        } catch(IllegalAccessException iae1) {
+            fail();
+        }
+    }
+
+    /**
      * Verifies that the `getColorsByName()` method returns the proper color counts.
      * This test uses the overload to check for non accents
      *

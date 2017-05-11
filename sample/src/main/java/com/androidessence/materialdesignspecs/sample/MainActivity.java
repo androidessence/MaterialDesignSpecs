@@ -2,44 +2,27 @@ package com.androidessence.materialdesignspecs.sample;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.androidessence.materialdesignspecs.ColorDialog;
+import com.androidessence.materialdesignspecs.MaterialPalettes;
+
+public class MainActivity extends AppCompatActivity implements ColorDialog.OnColorSelectedListener {
+
+    private Toolbar toolbar;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        // Get the LinearLayout used to display our TextViews
-//        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_layout);
-//
-//        try {
-//            // Get all 500 level colors.
-//            List<Integer> fiveHundredColors = MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500);
-//
-//            // For each color, create a text view, set its text color, and display
-//            for(Integer color : fiveHundredColors) {
-//                TextView textView = new TextView(this);
-//                textView.setText("This is a 500 level color.");
-//                // getResources().getColor() was deprecated in API 23.
-//                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    textView.setTextColor(getColor(color));
-//                } else {
-//                    textView.setTextColor(getResources().getColor(color));
-//                }
-//                linearLayout.addView(textView);
-//            }
-//
-//        } catch(IllegalAccessException iae) {
-//            // Sample - Do nothing, not important. If it fails we will figure out why.
-//        }
     }
 
     @Override
@@ -51,16 +34,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_color_picker:
+                try {
+                    ColorDialog colorDialog = ColorDialog.newInstance(MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500));
+                    colorDialog.setOnColorSelectedListener(this);
+                    colorDialog.show(getSupportFragmentManager(), "ColorPicker");
+                } catch (IllegalAccessException iae) {
+                    Log.e(MainActivity.class.getSimpleName(), iae.getMessage(), iae);
+                }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * When a color is selected from the dialog, just change the background of the toolbar to verify
+     * that it worked.
+     * @param color The color that was selected from the dialog.
+     */
+    @Override
+    public void onColorSelected(Integer color) {
+        Integer colorRes = ContextCompat.getColor(this, color);
+        toolbar.setBackgroundColor(colorRes);
     }
 }
