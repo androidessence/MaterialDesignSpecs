@@ -207,6 +207,37 @@ public class MaterialPalettes {
     }
 
     /**
+     * Retrieves a list of colors for multiple color names.
+     * @param colorNames The names of the colors to return.
+     * @return An array list of color resources for each of the colors given.
+     * @throws IllegalAccessException Thrown if any resources cannot be accessed.
+     */
+    public static List<Integer> getColorsByNames(String[] colorNames) throws IllegalAccessException {
+        return getColorsByNames(colorNames, true); // Default true for accents.
+    }
+
+    /**
+     * Retrieves a list of colors for multiple color names.
+     * @param colorNames The names of the colors to return.
+     * @param getAccents A flag variable that will either fetch the accent level colors or not.
+     * @return An array list of color resources for each of the colors given.
+     * @throws IllegalAccessException Thrown if any resources cannot be accessed.
+     */
+    public static List<Integer> getColorsByNames(String[] colorNames, boolean getAccents) throws IllegalAccessException {
+        if (colorNames == null) {
+            throw new IllegalArgumentException(MESSAGE_BAD_COLOR_NAME);
+        }
+
+        List<Integer> colorList = new ArrayList<>();
+
+        for(String name : colorNames) {
+            colorList.addAll(getColorsByName(name, getAccents));
+        }
+
+        return colorList;
+    }
+
+    /**
      * Builds a list of color resources for the Accents of a given color name.
      * @param colorName The color to retrieve accent shades for.
      * @return The color resources for all accent colors of the given name.
