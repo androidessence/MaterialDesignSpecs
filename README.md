@@ -97,11 +97,11 @@ Sample
 
 To see the library in action, this is the output of getting all 500 level colors and displaying them in individual TextViews:
 
-![Sample](/images/sample.png)
+![Sample](/images/sample.png =400X640)
 
 Here is an example of the ColorPicker in action:
 
-![Picker](/images/picker.png)
+![Picker](/images/picker.png =400X640)
 
 Colors
 -----
