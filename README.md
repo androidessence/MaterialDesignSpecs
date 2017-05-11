@@ -12,7 +12,7 @@ Usage
 To have access to the library, add the dependency to your build.gradle:
 
 ```java
-	compile 'com.androidessence:materialdesignspecs:1.0.6'
+	compile 'com.androidessence:materialdesignspecs:1.1.0'
 ```
 
 At the time of publication, the library has not yet been linked to JCenter, so you will also have to add the link to our Maven repository as well:
@@ -81,12 +81,27 @@ Please be aware that the Integer returned by the methods above is the Integer of
 	myTextView.setTextColor(getResources().getColor(randomColor));
 ```
 
+ColorPicker
+-----
+
+MDS also supplies a built in ColorPicker dialog you can use to allow users to pick a color. All you need to do is supply a list of colors for the picker, as well as implement an `OnColorSelectedListener` interface. Here is an example usage of the dialog:
+
+```java
+    ColorDialog colorDialog = ColorDialog.newInstance(MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500));
+    colorDialog.setOnColorSelectedListener(this);
+    colorDialog.show(getSupportFragmentManager(), "ColorPicker");
+```
+
 Sample
 -----
 
 To see the library in action, this is the output of getting all 500 level colors and displaying them in individual TextViews:
 
-<img src='http://i.imgur.com/cfuweBv.png' width='400' height='640' />
+![Sample](/images/sample.png)
+
+Here is an example of the ColorPicker in action:
+
+![Picker](/images/picker.png)
 
 Colors
 -----

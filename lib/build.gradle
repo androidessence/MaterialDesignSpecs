@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.androidessence'
     PUBLISH_ARTIFACT_ID = 'materialdesignspecs'
-    PUBLISH_VERSION = '1.0.6'
+    PUBLISH_VERSION = '1.1.0'
 }
 
 android {
@@ -15,8 +15,8 @@ android {
     defaultConfig {
         minSdkVersion globalConfigurations["androidMinSdkVersion"]
         targetSdkVersion globalConfigurations["androidTargetSdkVersion"]
-        versionCode 4
-        versionName "1.0.6"
+        versionCode 5
+        versionName "1.1.0"
     }
     buildTypes {
         release {
