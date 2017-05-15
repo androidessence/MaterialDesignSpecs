@@ -3,15 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="16dp"
+    android:layout_margin="4dp"
     android:background="@color/mds_blue_500">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="4dp"
         android:textColor="@android:color/white"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="mds_blue_500"/>
-
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:id="@+id/img_check"
+        android:src="@drawable/ic_check_white_24dp"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

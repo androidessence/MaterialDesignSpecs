@@ -4,17 +4,21 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.androidessence.materialdesignspecs.CircleColorAdapter;
 import com.androidessence.materialdesignspecs.ColorDialog;
 import com.androidessence.materialdesignspecs.MaterialPalettes;
 
 public class MainActivity extends AppCompatActivity implements ColorDialog.OnColorSelectedListener {
 
     private Toolbar toolbar;
+
+    private int selectedPos = 2;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -37,8 +41,10 @@ public class MainActivity extends AppCompatActivity implements ColorDialog.OnCol
         switch (item.getItemId()) {
             case R.id.action_color_picker:
                 try {
-                    ColorDialog colorDialog = ColorDialog.newInstance(MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500));
+                    ColorDialog colorDialog = ColorDialog.newInstance(MaterialPalettes.getColorsByLevel(MaterialPalettes.LEVEL_500),selectedPos);
                     colorDialog.setOnColorSelectedListener(this);
+                    colorDialog.setAdapter(new CircleColorAdapter(this));
+                    colorDialog.setLayoutManager(new GridLayoutManager(MainActivity.this,5));
                     colorDialog.show(getSupportFragmentManager(), "ColorPicker");
                 } catch (IllegalAccessException iae) {
                     Log.e(MainActivity.class.getSimpleName(), iae.getMessage(), iae);
@@ -56,8 +62,9 @@ public class MainActivity extends AppCompatActivity implements ColorDialog.OnCol
      * @param color The color that was selected from the dialog.
      */
     @Override
-    public void onColorSelected(Integer color) {
+    public void onColorSelected(int selectedPos,Integer color) {
         Integer colorRes = ContextCompat.getColor(this, color);
         toolbar.setBackgroundColor(colorRes);
+        this.selectedPos = selectedPos;
     }
 }

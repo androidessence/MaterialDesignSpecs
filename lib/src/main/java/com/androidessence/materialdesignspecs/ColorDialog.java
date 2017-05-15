@@ -1,11 +1,9 @@
 package com.androidessence.materialdesignspecs;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +23,20 @@ public class ColorDialog extends DialogFragment {
 
     private static final String ARG_COLOR_LIST = "colorList";
 
+    private static final String ARG_SELECTED_COLOR_POSITION = "color_position";
+
     private OnColorSelectedListener listener;
 
-    public static ColorDialog newInstance(List<Integer> colorList) {
+    private RecyclerView.LayoutManager layoutManager;
+
+    private int gridRowCount = 4;
+
+    private BaseColorAdapter adapter;
+
+    public static ColorDialog newInstance(List<Integer> colorList, int selectedPos) {
         Bundle args = new Bundle();
         args.putIntegerArrayList(ARG_COLOR_LIST, new ArrayList<>(colorList));
-
+        args.putInt(ARG_SELECTED_COLOR_POSITION,selectedPos);
         ColorDialog dialog = new ColorDialog();
         dialog.setArguments(args);
 
@@ -40,20 +46,37 @@ public class ColorDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.dialog_color, container, false);
 
         List<Integer> colorList = new ArrayList<>();
-
+        int selectedPos = -1;
         if (getArguments() != null && getArguments().containsKey(ARG_COLOR_LIST)) {
             colorList = getArguments().getIntegerArrayList(ARG_COLOR_LIST);
+            selectedPos = getArguments().getInt(ARG_SELECTED_COLOR_POSITION, -1);
         }
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        ColorAdapter adapter = new ColorAdapter(colorList);
+         if(adapter==null) {
+             adapter = new CircleColorAdapter(colorList, new OnColorSelectedListener() {
+                 @Override
+                 public void onColorSelected(int selectedPos, Integer color) {
+                     if (listener != null) {
+                         listener.onColorSelected(selectedPos, color);
 
+                     }
+                     dismiss();
+                 }
+             }, selectedPos);
+         }else{
+             adapter.setColors(colorList);
+             adapter.setSelected(selectedPos);
+         }
         RecyclerView recyclerView = (RecyclerView) view;
         if (recyclerView != null) {
-            recyclerView.setLayoutManager(linearLayoutManager);
+            if(layoutManager==null){
+                layoutManager = new GridLayoutManager(getContext(),gridRowCount);
+            }
+            recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
         }
 
@@ -63,62 +86,18 @@ public class ColorDialog extends DialogFragment {
     public void setOnColorSelectedListener(OnColorSelectedListener listener) {
         this.listener = listener;
     }
-
+    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
+        this.layoutManager=layoutManager;
+    }
+    public void setGridRowCount(int gridRowCount) {
+        this.gridRowCount=gridRowCount;
+    }
+    public void setAdapter(BaseColorAdapter colorAdapter) {
+        adapter = colorAdapter;
+    }
     public interface OnColorSelectedListener {
-        void onColorSelected(Integer color);
+        void onColorSelected(int selectedPos , Integer color);
     }
 
-    @SuppressWarnings("WeakerAccess")
-    public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
-        private List<Integer> colors = new ArrayList<>();
 
-        public ColorAdapter(List<Integer> colors) {
-            this.colors = colors;
-        }
-
-        @Override
-        public ColorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Context context = parent.getContext();
-            View view = LayoutInflater.from(context).inflate(R.layout.list_item_color, parent, false);
-            return new ColorViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(ColorViewHolder holder, int position) {
-            holder.bindColor(colors.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return colors.size();
-        }
-
-        public class ColorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private View colorView;
-
-            public ColorViewHolder(View view) {
-                super(view);
-
-                colorView = view;
-                colorView.setOnClickListener(this);
-            }
-
-            public void bindColor(Integer color) {
-                int colorRes = ContextCompat.getColor(colorView.getContext(), color);
-
-                this.colorView.setBackgroundColor(colorRes);
-            }
-
-            @Override
-            public void onClick(View v) {
-                Integer color = colors.get(getAdapterPosition());
-
-                if (listener != null) {
-                    listener.onColorSelected(color);
-                }
-
-                dismiss();
-            }
-        }
-    }
 }
