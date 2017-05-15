@@ -66,6 +66,10 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
         colors = colorList;
     }
 
+    public void setColorSelectedListener(ColorDialog.OnColorSelectedListener listener) {
+        this.listener = listener;
+    }
+
     public abstract class BaseColorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private View colorView;
         private ImageView imgCheckView;

@@ -57,19 +57,11 @@ public class ColorDialog extends DialogFragment {
         }
 
          if(adapter==null) {
-             adapter = new CircleColorAdapter(colorList, new OnColorSelectedListener() {
-                 @Override
-                 public void onColorSelected(int selectedPos, Integer color) {
-                     if (listener != null) {
-                         listener.onColorSelected(selectedPos, color);
-
-                     }
-                     dismiss();
-                 }
-             }, selectedPos);
+             adapter = new CircleColorAdapter(colorList, colorSelectedListener,selectedPos);
          }else{
              adapter.setColors(colorList);
              adapter.setSelected(selectedPos);
+             adapter.setColorSelectedListener(colorSelectedListener);
          }
         RecyclerView recyclerView = (RecyclerView) view;
         if (recyclerView != null) {
@@ -95,9 +87,20 @@ public class ColorDialog extends DialogFragment {
     public void setAdapter(BaseColorAdapter colorAdapter) {
         adapter = colorAdapter;
     }
+
+
     public interface OnColorSelectedListener {
         void onColorSelected(int selectedPos , Integer color);
     }
+private OnColorSelectedListener colorSelectedListener = new OnColorSelectedListener() {
 
+    @Override
+    public void onColorSelected(int selectedPos, Integer color) {
+        if (listener != null) {
+            listener.onColorSelected(selectedPos, color);
+        }
+        dismiss();
+    }
+};
 
 }
