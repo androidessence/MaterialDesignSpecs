@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Dialog fragment that displays a list of colors.
- *
+ * <p/>
  * Created by adam.mcneilly on 5/8/17.
  */
 public class ColorDialog extends DialogFragment {
@@ -36,7 +36,7 @@ public class ColorDialog extends DialogFragment {
     public static ColorDialog newInstance(List<Integer> colorList, int selectedPos) {
         Bundle args = new Bundle();
         args.putIntegerArrayList(ARG_COLOR_LIST, new ArrayList<>(colorList));
-        args.putInt(ARG_SELECTED_COLOR_POSITION,selectedPos);
+        args.putInt(ARG_SELECTED_COLOR_POSITION, selectedPos);
         ColorDialog dialog = new ColorDialog();
         dialog.setArguments(args);
 
@@ -56,17 +56,17 @@ public class ColorDialog extends DialogFragment {
             selectedPos = getArguments().getInt(ARG_SELECTED_COLOR_POSITION, -1);
         }
 
-         if(adapter==null) {
-             adapter = new CircleColorAdapter(colorList, colorSelectedListener,selectedPos);
-         }else{
-             adapter.setColors(colorList);
-             adapter.setSelected(selectedPos);
-             adapter.setColorSelectedListener(colorSelectedListener);
-         }
+        if (adapter == null) {
+            adapter = new CircleColorAdapter(colorList, colorSelectedListener, selectedPos);
+        } else {
+            adapter.setColors(colorList);
+            adapter.setSelected(selectedPos);
+            adapter.setColorSelectedListener(colorSelectedListener);
+        }
         RecyclerView recyclerView = (RecyclerView) view;
         if (recyclerView != null) {
-            if(layoutManager==null){
-                layoutManager = new GridLayoutManager(getContext(),gridRowCount);
+            if (layoutManager == null) {
+                layoutManager = new GridLayoutManager(getContext(), gridRowCount);
             }
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
@@ -78,29 +78,33 @@ public class ColorDialog extends DialogFragment {
     public void setOnColorSelectedListener(OnColorSelectedListener listener) {
         this.listener = listener;
     }
+
     public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
-        this.layoutManager=layoutManager;
+        this.layoutManager = layoutManager;
     }
+
     public void setGridRowCount(int gridRowCount) {
-        this.gridRowCount=gridRowCount;
+        this.gridRowCount = gridRowCount;
     }
+
     public void setAdapter(BaseColorAdapter colorAdapter) {
         adapter = colorAdapter;
     }
 
 
     public interface OnColorSelectedListener {
-        void onColorSelected(int selectedPos , Integer color);
+        void onColorSelected(int selectedPos, Integer color);
     }
-private OnColorSelectedListener colorSelectedListener = new OnColorSelectedListener() {
 
-    @Override
-    public void onColorSelected(int selectedPos, Integer color) {
-        if (listener != null) {
-            listener.onColorSelected(selectedPos, color);
+    private OnColorSelectedListener colorSelectedListener = new OnColorSelectedListener() {
+
+        @Override
+        public void onColorSelected(int selectedPos, Integer color) {
+            if (listener != null) {
+                listener.onColorSelected(selectedPos, color);
+            }
+            dismiss();
         }
-        dismiss();
-    }
-};
+    };
 
 }

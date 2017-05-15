@@ -24,17 +24,20 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
 
     private ColorDialog.OnColorSelectedListener listener;
 
-    public BaseColorAdapter(List<Integer> colors,ColorDialog.OnColorSelectedListener listener) {
-        this(colors,listener,-1);
+    public BaseColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener) {
+        this(colors, listener, -1);
     }
+
     public BaseColorAdapter(ColorDialog.OnColorSelectedListener listener) {
-        this(new ArrayList<Integer>(),listener,-1);
+        this(new ArrayList<Integer>(), listener, -1);
     }
-    public BaseColorAdapter(List<Integer> colors,ColorDialog.OnColorSelectedListener listener,int selectedPosition) {
+
+    public BaseColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener, int selectedPosition) {
         this.colors = colors;
         this.listener = listener;
         this.selectedPosition = selectedPosition;
     }
+
     @Override
     public BaseColorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -46,21 +49,26 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
     public void onBindViewHolder(BaseColorViewHolder holder, int position) {
         holder.bindColor(colors.get(position));
     }
+
     public void setSelected(int pos) {
         selectedPosition = pos;
         notifyDataSetChanged();
     }
+
     public int getSelected() {
-       return selectedPosition;
+        return selectedPosition;
     }
+
     @Override
     public int getItemCount() {
         return colors.size();
     }
 
-    public abstract @LayoutRes int getRVItemLayout() ;
+    public abstract
+    @LayoutRes
+    int getRVItemLayout();
 
-    public abstract BaseColorViewHolder getViewHolder(View view) ;
+    public abstract BaseColorViewHolder getViewHolder(View view);
 
     public void setColors(List<Integer> colorList) {
         colors = colorList;
@@ -73,6 +81,7 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
     public abstract class BaseColorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private View colorView;
         private ImageView imgCheckView;
+
         public BaseColorViewHolder(View view) {
             super(view);
             initView(view);
@@ -85,9 +94,9 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
 
         public void bindColor(Integer color) {
             int colorRes = ContextCompat.getColor(colorView.getContext(), color);
-            if(selectedPosition == getAdapterPosition()) {
+            if (selectedPosition == getAdapterPosition()) {
                 imgCheckView.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 imgCheckView.setVisibility(View.GONE);
             }
             this.colorView.setBackgroundColor(colorRes);
@@ -95,13 +104,13 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
 
         @Override
         public void onClick(View v) {
-            if(getAdapterPosition()==RecyclerView.NO_POSITION){
+            if (getAdapterPosition() == RecyclerView.NO_POSITION) {
                 return;
             }
             Integer color = colors.get(getAdapterPosition());
 
             if (listener != null) {
-                listener.onColorSelected(getAdapterPosition(),color);
+                listener.onColorSelected(getAdapterPosition(), color);
             }
 
         }

@@ -23,12 +23,15 @@ public class CircleColorAdapter extends BaseColorAdapter {
     public CircleColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener) {
         super(colors, listener);
     }
-    public CircleColorAdapter(List<Integer> colors,ColorDialog.OnColorSelectedListener listener, int selectedPos) {
+
+    public CircleColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener, int selectedPos) {
         super(colors, listener, selectedPos);
     }
+
     public CircleColorAdapter(ColorDialog.OnColorSelectedListener listener) {
         super(listener);
     }
+
     @Override
     public int getRVItemLayout() {
         return R.layout.circle_list_item_color;
@@ -38,9 +41,11 @@ public class CircleColorAdapter extends BaseColorAdapter {
     public BaseColorViewHolder getViewHolder(View view) {
         return new CircleColorViewHolder(view);
     }
+
     public class CircleColorViewHolder extends BaseColorViewHolder {
         private View colorView;
         private ImageView imgCheckView;
+
         public CircleColorViewHolder(View view) {
             super(view);
         }
@@ -63,17 +68,19 @@ public class CircleColorAdapter extends BaseColorAdapter {
             stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);
             return stateListDrawable;
         }
+
         private int shiftColor(int color) {
             float[] hsv = new float[3];
             Color.colorToHSV(color, hsv);
             hsv[2] *= 0.9f; // value component
             return Color.HSVToColor(hsv);
         }
+
         public void bindColor(Integer colorRes) {
             int color = ContextCompat.getColor(colorView.getContext(), colorRes);
-            if(getSelected() == getAdapterPosition()) {
+            if (getSelected() == getAdapterPosition()) {
                 imgCheckView.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 imgCheckView.setVisibility(View.GONE);
             }
             Drawable selector = createSelector(color);
@@ -92,6 +99,7 @@ public class CircleColorAdapter extends BaseColorAdapter {
                 setBackgroundCompat(colorView, selector);
             }
         }
+
         @SuppressWarnings("deprecation")
         private void setBackgroundCompat(View view, Drawable d) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)

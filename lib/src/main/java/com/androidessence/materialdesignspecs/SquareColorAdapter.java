@@ -16,18 +16,23 @@ public class SquareColorAdapter extends BaseColorAdapter {
     public SquareColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener) {
         super(colors, listener);
     }
-    public SquareColorAdapter(List<Integer> colors,ColorDialog.OnColorSelectedListener listener, int selectedPos) {
+
+    public SquareColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener, int selectedPos) {
         super(colors, listener, selectedPos);
     }
+
     public SquareColorAdapter(ColorDialog.OnColorSelectedListener listener) {
         super(listener);
     }
+
     @Override
     public BaseColorViewHolder getViewHolder(View view) {
         return new SquareColorViewHolder(view);
     }
+
     @Override
-    public @LayoutRes
+    public
+    @LayoutRes
     int getRVItemLayout() {
         return R.layout.list_item_color;
     }
@@ -35,6 +40,7 @@ public class SquareColorAdapter extends BaseColorAdapter {
     public class SquareColorViewHolder extends BaseColorViewHolder {
         private View colorView;
         private ImageView imgCheckView;
+
         public SquareColorViewHolder(View view) {
             super(view);
         }
@@ -49,9 +55,9 @@ public class SquareColorAdapter extends BaseColorAdapter {
 
         public void bindColor(Integer color) {
             int colorRes = ContextCompat.getColor(colorView.getContext(), color);
-            if(getSelected() == getAdapterPosition()) {
+            if (getSelected() == getAdapterPosition()) {
                 imgCheckView.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 imgCheckView.setVisibility(View.GONE);
             }
             this.colorView.setBackgroundColor(colorRes);
