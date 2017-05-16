@@ -17,19 +17,23 @@ import com.androidessence.materialdesignspeclibrary.R;
 import java.util.List;
 
 /**
+ * Adapter that displays a bunch of circular color choices.
+ * <p>
  * Created by ankitagrawal on 5/15/17.
  */
+@SuppressWarnings("WeakerAccess")
 public class CircleColorAdapter extends BaseColorAdapter {
+
+    public CircleColorAdapter(ColorDialog.OnColorSelectedListener listener) {
+        super(listener);
+    }
+
     public CircleColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener) {
         super(colors, listener);
     }
 
     public CircleColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener, int selectedPos) {
         super(colors, listener, selectedPos);
-    }
-
-    public CircleColorAdapter(ColorDialog.OnColorSelectedListener listener) {
-        super(listener);
     }
 
     @Override
@@ -77,12 +81,10 @@ public class CircleColorAdapter extends BaseColorAdapter {
         }
 
         public void bindColor(Integer colorRes) {
+            int visibility = (getSelectedPosition() == getAdapterPosition()) ? View.VISIBLE : View.GONE;
+            imgCheckView.setVisibility(visibility);
+
             int color = ContextCompat.getColor(colorView.getContext(), colorRes);
-            if (getSelectedPosition() == getAdapterPosition()) {
-                imgCheckView.setVisibility(View.VISIBLE);
-            } else {
-                imgCheckView.setVisibility(View.GONE);
-            }
             Drawable selector = createSelector(color);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int[][] states = new int[][]{
@@ -102,9 +104,11 @@ public class CircleColorAdapter extends BaseColorAdapter {
 
         @SuppressWarnings("deprecation")
         private void setBackgroundCompat(View view, Drawable d) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 view.setBackground(d);
-            else view.setBackgroundDrawable(d);
+            } else {
+                view.setBackgroundDrawable(d);
+            }
         }
 
     }

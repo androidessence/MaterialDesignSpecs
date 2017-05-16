@@ -10,19 +10,23 @@ import com.androidessence.materialdesignspeclibrary.R;
 import java.util.List;
 
 /**
+ * Adapter that displays a bunch of square color choices.
+ * <p>
  * Created by ankitagrawal on 5/15/17.
  */
+@SuppressWarnings("WeakerAccess")
 public class SquareColorAdapter extends BaseColorAdapter {
+
+    public SquareColorAdapter(ColorDialog.OnColorSelectedListener listener) {
+        super(listener);
+    }
+
     public SquareColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener) {
         super(colors, listener);
     }
 
     public SquareColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener, int selectedPos) {
         super(colors, listener, selectedPos);
-    }
-
-    public SquareColorAdapter(ColorDialog.OnColorSelectedListener listener) {
-        super(listener);
     }
 
     @Override
@@ -55,12 +59,10 @@ public class SquareColorAdapter extends BaseColorAdapter {
 
         public void bindColor(Integer color) {
             int colorRes = ContextCompat.getColor(colorView.getContext(), color);
-            if (getSelectedPosition() == getAdapterPosition()) {
-                imgCheckView.setVisibility(View.VISIBLE);
-            } else {
-                imgCheckView.setVisibility(View.GONE);
-            }
+            int visibility = (getSelectedPosition() == getAdapterPosition()) ? View.VISIBLE : View.GONE;
+
             this.colorView.setBackgroundColor(colorRes);
+            this.imgCheckView.setVisibility(visibility);
         }
 
     }
