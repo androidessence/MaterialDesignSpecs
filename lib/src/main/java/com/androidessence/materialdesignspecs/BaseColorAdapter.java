@@ -20,16 +20,16 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAdapter.BaseColorViewHolder> {
     private List<Integer> colors = new ArrayList<>();
-    private int selectedPosition = -1;
+    private int selectedPosition = RecyclerView.NO_POSITION;
 
     private ColorDialog.OnColorSelectedListener listener;
 
     public BaseColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener) {
-        this(colors, listener, -1);
+        this(colors, listener, RecyclerView.NO_POSITION);
     }
 
     public BaseColorAdapter(ColorDialog.OnColorSelectedListener listener) {
-        this(new ArrayList<Integer>(), listener, -1);
+        this(new ArrayList<Integer>(), listener, RecyclerView.NO_POSITION);
     }
 
     public BaseColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener, int selectedPosition) {
@@ -55,7 +55,7 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
         notifyDataSetChanged();
     }
 
-    public int getSelected() {
+    public int getSelectedPosition() {
         return selectedPosition;
     }
 

@@ -78,7 +78,7 @@ public class CircleColorAdapter extends BaseColorAdapter {
 
         public void bindColor(Integer colorRes) {
             int color = ContextCompat.getColor(colorView.getContext(), colorRes);
-            if (getSelected() == getAdapterPosition()) {
+            if (getSelectedPosition() == getAdapterPosition()) {
                 imgCheckView.setVisibility(View.VISIBLE);
             } else {
                 imgCheckView.setVisibility(View.GONE);

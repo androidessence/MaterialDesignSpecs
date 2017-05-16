@@ -55,7 +55,7 @@ public class SquareColorAdapter extends BaseColorAdapter {
 
         public void bindColor(Integer color) {
             int colorRes = ContextCompat.getColor(colorView.getContext(), color);
-            if (getSelected() == getAdapterPosition()) {
+            if (getSelectedPosition() == getAdapterPosition()) {
                 imgCheckView.setVisibility(View.VISIBLE);
             } else {
                 imgCheckView.setVisibility(View.GONE);
