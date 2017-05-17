@@ -105,7 +105,7 @@ public abstract class BaseColorAdapter extends RecyclerView.Adapter<BaseColorAda
     }
 
     /**
-     * Sets the callback listener to use when a color is clicked.
+     * Sets the callback onColorSelectedListener to use when a color is clicked.
      */
     public void setColorSelectedListener(ColorDialog.OnColorSelectedListener listener) {
         this.listener = listener;
