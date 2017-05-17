@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.androidessence.materialdesignspecs.sample.MainActivity">
     <item
-        android:id="@+id/action_color_picker"
+        android:id="@+id/action_circle_color_picker"
         android:orderInCategory="100"
-        android:title="@string/color_picker"
+        android:title="@string/circle_color_picker"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_square_color_picker"
+        android:orderInCategory="100"
+        android:title="@string/square_color_picker"
         app:showAsAction="never" />
 </menu>

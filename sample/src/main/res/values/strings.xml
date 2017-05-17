@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Material Design Specs Sample</string>
-    <string name="color_picker">Color Picker</string>
+    <string name="circle_color_picker">Circle Color Picker</string>
+    <string name="square_color_picker">Square Color Picker</string>
 </resources>
