@@ -22,11 +22,11 @@ public class SquareColorAdapter extends BaseColorAdapter {
     }
 
     public SquareColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener) {
-        super(colors, listener);
+        super(listener, colors);
     }
 
     public SquareColorAdapter(List<Integer> colors, ColorDialog.OnColorSelectedListener listener, int selectedPos) {
-        super(colors, listener, selectedPos);
+        super(listener, colors, selectedPos);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SquareColorAdapter extends BaseColorAdapter {
         }
 
         @Override
-        protected void initView(View view) {
+        public void initView(View view) {
             colorView = view;
             imgCheckView = (ImageView) view.findViewById(R.id.img_check);
             colorView.setOnClickListener(this);

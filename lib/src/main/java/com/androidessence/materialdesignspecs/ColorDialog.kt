@@ -47,9 +47,9 @@ class ColorDialog : DialogFragment() {
         if (adapter == null) {
             adapter = CircleColorAdapter(colorList, colorSelectedListener, selectedPos)
         } else {
-            adapter?.setColors(colorList)
+            adapter?.colors = colorList
             adapter?.selectedPosition = selectedPos
-            adapter?.setColorSelectedListener(colorSelectedListener)
+            adapter?.onColorSelectedListener = colorSelectedListener
         }
 
         if (layoutManager == null) {
