@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 ext {
     PUBLISH_GROUP_ID = 'com.androidessence'
     PUBLISH_ARTIFACT_ID = 'materialdesignspecs'
-    PUBLISH_VERSION = '1.1.1'
+    PUBLISH_VERSION = '2.0.0'
 }
 
 android {
@@ -16,8 +16,8 @@ android {
     defaultConfig {
         minSdkVersion globalConfigurations["androidMinSdkVersion"]
         targetSdkVersion globalConfigurations["androidTargetSdkVersion"]
-        versionCode 6
-        versionName "1.1.1"
+        versionCode 7
+        versionName "2.0.0"
     }
     buildTypes {
         release {
