@@ -12,7 +12,7 @@ Usage
 To have access to the library, add the dependency to your build.gradle:
 
 ```java
-	compile 'com.androidessence:materialdesignspecs:2.0.0'
+	compile 'com.androidessence:materialdesignspecs:2.0.1'
 ```
 
 At the time of publication, the library has not yet been linked to JCenter, so you will also have to add the link to our Maven repository as well:
