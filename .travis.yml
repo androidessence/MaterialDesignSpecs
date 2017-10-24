@@ -14,7 +14,7 @@ jdk:
 
 script:
   - chmod +x gradlew
-  - ./gradlew clean build test --stacktrace --info
+  - ./gradlew clean build test
 
 notifications:
   email: false
