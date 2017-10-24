@@ -273,4 +273,7 @@
     <color name="mds_bluegrey_800">#37474F</color>
     <color name="mds_bluegrey_900">#263238</color>
 
+    <color name="mds_white">#FFFFFF</color>
+    <color name="mds_black">#000000</color>
+    <color name="mds_transparent">#00000000</color>
 </resources>

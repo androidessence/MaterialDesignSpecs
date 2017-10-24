@@ -12,7 +12,7 @@ Usage
 To have access to the library, add the dependency to your build.gradle:
 
 ```java
-	compile 'com.androidessence:materialdesignspecs:2.0.0'
+	compile 'com.androidessence:materialdesignspecs:2.0.1'
 ```
 
 At the time of publication, the library has not yet been linked to JCenter, so you will also have to add the link to our Maven repository as well:
@@ -159,6 +159,8 @@ And the accent ones are:
 Example of a color: `mds_orange_A400`.
 
 **Reminder:** brown, grey, and bluegrey don't have accent colors.
+
+We highly recommend you use this library for the mds_white and mds_black colors as well, as some OEM's change the `@android:color/white` resource - https://twitter.com/mandybess/status/910555678476951552
 
 The full color palettes as well as some more information on how to use them can be found in Google's [Material Design Specifications](https://www.google.com/design/spec/style/color.html#color-color-palette).
 
