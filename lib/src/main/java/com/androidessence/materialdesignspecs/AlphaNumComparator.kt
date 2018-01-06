@@ -42,10 +42,6 @@ import java.util.Comparator
  * Collections.sort(your list, new AlphanumComparator());
 </String> */
 internal class AlphaNumComparator : Comparator<String> {
-    private fun isDigit(ch: Char): Boolean {
-        return ch.toInt() in 48..57
-    }
-
     /**
      * Length of string is passed in for improved efficiency (only need to calculate it once)
      */
@@ -59,10 +55,10 @@ internal class AlphaNumComparator : Comparator<String> {
 
         // If we are starting with a digit, let's loop until we hit the end of the digits.
         // Otherwise, loop until we hit a digit.
-        if (isDigit(currentChar)) {
+        if (currentChar.isDigit()) {
             while (position < sLength) {
                 currentChar = s[position]
-                if (!isDigit(currentChar))
+                if (!currentChar.isDigit())
                     break
                 stringBuilder.append(currentChar)
                 position++
@@ -70,7 +66,7 @@ internal class AlphaNumComparator : Comparator<String> {
         } else {
             while (position < sLength) {
                 currentChar = s[position]
-                if (isDigit(currentChar))
+                if (currentChar.isDigit())
                     break
                 stringBuilder.append(currentChar)
                 position++
@@ -100,13 +96,13 @@ internal class AlphaNumComparator : Comparator<String> {
 
             // If both chunks contain numeric characters, sort them numerically
             var result: Int
-            if (isDigit(chunk1[0]) && isDigit(chunk2[0])) {
+            if (chunk1[0].isDigit() && chunk2[0].isDigit()) {
                 // Simple chunk comparison by length.
                 val thisChunkLength = chunk1.length
                 result = thisChunkLength - chunk2.length
                 // If equal, the first different number counts
                 if (result == 0) {
-                    for (i in 0..thisChunkLength - 1) {
+                    for (i in 0 until thisChunkLength) {
                         result = chunk1[i] - chunk2[i]
                         if (result != 0) {
                             return result

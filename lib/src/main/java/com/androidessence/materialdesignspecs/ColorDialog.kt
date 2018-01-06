@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.androidessence.materialdesignspeclibrary.R
 
+@Suppress("MemberVisibilityCanPrivate")
 /**
  * Dialog fragment that displays a list of colors.
  *
@@ -30,6 +31,7 @@ class ColorDialog : DialogFragment() {
     /**
      * The number of columns in the grid.
      */
+    @Suppress("MemberVisibilityCanBePrivate")
     var columnCount: Int = 0
 
     /**
@@ -37,9 +39,9 @@ class ColorDialog : DialogFragment() {
      */
     var adapter: BaseColorAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater?.inflate(R.layout.dialog_color, container, false)
+        val view = inflater.inflate(R.layout.dialog_color, container, false)
 
         val colorList = arguments?.getIntegerArrayList(ARG_COLOR_LIST) ?: ArrayList()
         val selectedPos = arguments?.getInt(ARG_SELECTED_COLOR_POSITION) ?: -1
@@ -93,12 +95,12 @@ class ColorDialog : DialogFragment() {
         /**
          * Argument key for the list of colors to display.
          */
-        private val ARG_COLOR_LIST = "colorList"
+        private const val ARG_COLOR_LIST = "colorList"
 
         /**
          * Argument key for the position of the selected color.
          */
-        private val ARG_SELECTED_COLOR_POSITION = "colorPosition"
+        private const val ARG_SELECTED_COLOR_POSITION = "colorPosition"
 
         /**
          * Creates an instance of the ColorDialog.

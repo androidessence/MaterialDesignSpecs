@@ -3,8 +3,7 @@ package com.androidessence.materialdesignspecs
 import android.test.AndroidTestCase
 import android.util.Log
 import junit.framework.Assert
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Tests the utility methods inside the MaterialPalettes class.
@@ -192,9 +191,9 @@ class TestMaterialPalettes : AndroidTestCase() {
             val valueCheck = ArrayList<Int?>()
             val colorSize = MaterialPalettes.getAllColors().size
 
-            Log.d("RandomTest", "Color size:" + colorSize)
+            Log.d("RandomTest", "Color size: $colorSize")
 
-            for (i in 0..colorSize - 1) {
+            for (i in 0 until colorSize) {
                 val color = MaterialPalettes.randomColorNonRepeating
                 if (valueCheck.contains(color)) {
                     Assert.fail()

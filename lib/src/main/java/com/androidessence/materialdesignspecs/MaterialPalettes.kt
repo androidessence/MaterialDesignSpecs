@@ -9,32 +9,33 @@ import java.util.*
  *
  * Created by adammcneilly and mauker on 11/26/15.
  */
+@Suppress("MemberVisibilityCanPrivate", "unused", "MemberVisibilityCanBePrivate")
 object MaterialPalettes {
     // Our variables
-    private val PREFIX = "mds_"
-    private val SEPARATOR = "_"
-    private val ACCENT_SIGNIFIER = "_A"
+    private const val PREFIX = "mds_"
+    private const val SEPARATOR = "_"
+    private const val ACCENT_SIGNIFIER = "_A"
 
     // Color names
-    val RED = "red"
-    val PINK = "pink"
-    val PURPLE = "purple"
-    val DEEP_PURPLE = "deeppurple"
-    val INDIGO = "indigo"
-    val BLUE = "blue"
-    val LIGHT_BLUE = "lightblue"
-    val CYAN = "cyan"
-    val TEAL = "teal"
-    val GREEN = "green"
-    val LIGHT_GREEN = "lightgreen"
-    val LIME = "lime"
-    val YELLOW = "yellow"
-    val AMBER = "amber"
-    val ORANGE = "orange"
-    val DEEP_ORANGE = "deeporange"
-    val BROWN = "brown"
-    val GREY = "grey"
-    val BLUE_GREY = "bluegrey"
+    const val RED = "red"
+    const val PINK = "pink"
+    const val PURPLE = "purple"
+    const val DEEP_PURPLE = "deeppurple"
+    const val INDIGO = "indigo"
+    const val BLUE = "blue"
+    const val LIGHT_BLUE = "lightblue"
+    const val CYAN = "cyan"
+    const val TEAL = "teal"
+    const val GREEN = "green"
+    const val LIGHT_GREEN = "lightgreen"
+    const val LIME = "lime"
+    const val YELLOW = "yellow"
+    const val AMBER = "amber"
+    const val ORANGE = "orange"
+    const val DEEP_ORANGE = "deeporange"
+    const val BROWN = "brown"
+    const val GREY = "grey"
+    const val BLUE_GREY = "bluegrey"
 
     val COLORS_WITH_ACCENT_NAMES = arrayOf(RED, PINK, PURPLE, DEEP_PURPLE, INDIGO, BLUE, LIGHT_BLUE, CYAN, TEAL, GREEN, LIGHT_GREEN, LIME, YELLOW, AMBER, ORANGE, DEEP_ORANGE)
 
@@ -43,20 +44,20 @@ object MaterialPalettes {
     val ALL_COLOR_NAMES = arrayOf(RED, PINK, PURPLE, DEEP_PURPLE, INDIGO, BLUE, LIGHT_BLUE, CYAN, TEAL, GREEN, LIGHT_GREEN, LIME, YELLOW, AMBER, ORANGE, DEEP_ORANGE, BROWN, GREY, BLUE_GREY)
 
     // Color levels
-    val LEVEL_50 = "50"
-    val LEVEL_100 = "100"
-    val LEVEL_200 = "200"
-    val LEVEL_300 = "300"
-    val LEVEL_400 = "400"
-    val LEVEL_500 = "500"
-    val LEVEL_600 = "600"
-    val LEVEL_700 = "700"
-    val LEVEL_800 = "800"
-    val LEVEL_900 = "900"
-    val LEVEL_A100 = "A100"
-    val LEVEL_A200 = "A200"
-    val LEVEL_A400 = "A400"
-    val LEVEL_A700 = "A700"
+    const val LEVEL_50 = "50"
+    const val LEVEL_100 = "100"
+    const val LEVEL_200 = "200"
+    const val LEVEL_300 = "300"
+    const val LEVEL_400 = "400"
+    const val LEVEL_500 = "500"
+    const val LEVEL_600 = "600"
+    const val LEVEL_700 = "700"
+    const val LEVEL_800 = "800"
+    const val LEVEL_900 = "900"
+    const val LEVEL_A100 = "A100"
+    const val LEVEL_A200 = "A200"
+    const val LEVEL_A400 = "A400"
+    const val LEVEL_A700 = "A700"
 
     val NON_ACCENT_COLOR_LEVELS = arrayOf(LEVEL_50, LEVEL_100, LEVEL_200, LEVEL_300, LEVEL_400, LEVEL_500, LEVEL_600, LEVEL_700, LEVEL_800, LEVEL_900)
 
@@ -79,8 +80,8 @@ object MaterialPalettes {
      */
     private var randomCount: Int = 0
 
-    private val MESSAGE_BAD_COLOR_NAME = "Invalid color name."
-    private val MESSAGE_BAD_COLOR_LEVEL = "Invalid color level."
+    private const val MESSAGE_BAD_COLOR_NAME = "Invalid color name."
+    private const val MESSAGE_BAD_COLOR_LEVEL = "Invalid color level."
 
     /**
      * Builds a list of color resources for a Material Design color palette of a specific color.
@@ -92,7 +93,8 @@ object MaterialPalettes {
      * @throws IllegalAccessException The resource could not be accessed.
      */
     @Throws(IllegalAccessException::class)
-    @JvmOverloads fun getColorsByName(colorName: String, getAccents: Boolean = true): List<Int> {
+    @JvmOverloads
+    fun getColorsByName(colorName: String, getAccents: Boolean = true): List<Int> {
         // Verify color name
         if (!ALL_COLOR_NAMES.contains(colorName)) {
             throw IllegalArgumentException(MESSAGE_BAD_COLOR_NAME)
@@ -123,7 +125,8 @@ object MaterialPalettes {
      * @throws IllegalAccessException Thrown if any resources cannot be accessed.
      */
     @Throws(IllegalAccessException::class)
-    @JvmOverloads fun getColorsByNames(colorNames: Array<String>?, getAccents: Boolean = true): List<Int> {
+    @JvmOverloads
+    fun getColorsByNames(colorNames: Array<String>?, getAccents: Boolean = true): List<Int> {
         if (colorNames == null) {
             throw IllegalArgumentException(MESSAGE_BAD_COLOR_NAME)
         }
@@ -287,7 +290,8 @@ object MaterialPalettes {
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
     @Throws(IllegalAccessException::class)
-    @JvmOverloads fun getRandomColorByName(colorName: String, useAccents: Boolean = true): Int? {
+    @JvmOverloads
+    fun getRandomColorByName(colorName: String, useAccents: Boolean = true): Int? {
         // Get all colors for this name.
         // Input check is in this function.
         val colorList = getColorsByName(colorName, useAccents)
@@ -330,10 +334,10 @@ object MaterialPalettes {
     @Throws(IllegalAccessException::class)
     fun getAllColors(): List<Int> {
         if (allColors == null) {
-            allColors = ArrayList<Int>()
+            allColors = ArrayList()
         }
 
-        if (allColors?.isNotEmpty() ?: false) {
+        if (allColors?.isNotEmpty() == true) {
             return allColors as MutableList<Int>
         }
 
@@ -354,20 +358,20 @@ object MaterialPalettes {
     @Throws(IllegalAccessException::class)
     private fun initColorRandomizer() {
         if (randomList == null) {
-            randomList = ArrayList<Int>()
+            randomList = ArrayList()
         }
 
-        if (randomList?.isNotEmpty() ?: false) {
+        if (randomList?.isNotEmpty() == true) {
             randomList?.clear()
         }
 
         val size = getAllColors().size
 
-        for (i in 0..size - 1) {
+        for (i in 0 until size) {
             randomList?.add(i)
         }
 
-        Collections.shuffle(randomList)
+        randomList?.shuffle()
         randomCount = 0
     }
 

@@ -7,6 +7,7 @@ import android.widget.ImageView
 
 import com.androidessence.materialdesignspeclibrary.R
 
+@Suppress("unused")
 /**
  * Adapter that displays a bunch of square color choices.
  *
@@ -42,11 +43,14 @@ class SquareColorAdapter : BaseColorAdapter {
 
 
         override fun bindColor(color: Int?) {
-            val colorRes = ContextCompat.getColor(colorView?.context, color!!)
             val visibility = if (selectedPosition == adapterPosition) View.VISIBLE else View.GONE
-
-            this.colorView?.setBackgroundColor(colorRes)
             this.imgCheckView?.visibility = visibility
+
+            val context = colorView?.context
+            if (context != null && color != null) {
+                val colorRes = ContextCompat.getColor(context, color)
+                this.colorView?.setBackgroundColor(colorRes)
+            }
         }
     }
 }

@@ -31,16 +31,16 @@ abstract class BaseColorAdapter(var onColorSelectedListener: ColorDialog.OnColor
         this.selectedPosition = selectedPosition
     }
 
-    override fun onBindViewHolder(holder: BaseColorViewHolder?, position: Int) {
-        holder?.bindColor(colors[position])
+    override fun onBindViewHolder(holder: BaseColorViewHolder, position: Int) {
+        holder.bindColor(colors[position])
     }
 
     override fun getItemCount(): Int {
         return colors.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseColorViewHolder {
-        val context = parent?.context
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseColorViewHolder {
+        val context = parent.context
         val view = LayoutInflater.from(context).inflate(getRVItemLayout(), parent, false)
         return getViewHolder(view)
     }
@@ -59,6 +59,7 @@ abstract class BaseColorAdapter(var onColorSelectedListener: ColorDialog.OnColor
     /**
      * Base ViewHolder for a color adapter.
      */
+    @Suppress("LeakingThis") //TODO: Can we avoid this?
     abstract inner class BaseColorViewHolder(private val colorView: View) : RecyclerView.ViewHolder(colorView), View.OnClickListener {
         private val imgCheckView: ImageView
 
