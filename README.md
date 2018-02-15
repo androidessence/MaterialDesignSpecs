@@ -19,9 +19,9 @@ At the time of publication, the library has not yet been linked to JCenter, so y
 
 ```java
 	repositories {
-    	maven {
+    	    maven {
         	url  "http://dl.bintray.com/androidessence/maven"
-    	}
+    	    }
 	}
 ```
 
