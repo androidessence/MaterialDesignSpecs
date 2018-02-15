@@ -77,8 +77,8 @@ To specify a color name or level, use the available static strings such as:
 Please be aware that the Integer returned by the methods above is the Integer of the resource identifier, not the color itself. So, in order to give a TextView a random text color, it would be done like this:
 
 ```java
-	Integer randomColor = MaterialPalettes.getRandomColor();
-	myTextView.setTextColor(getResources().getColor(randomColor));
+    Integer randomColor = MaterialPalettes.getRandomColor();
+    myTextView.setTextColor(getResources().getColor(randomColor));
 ```
 
 ColorPicker
