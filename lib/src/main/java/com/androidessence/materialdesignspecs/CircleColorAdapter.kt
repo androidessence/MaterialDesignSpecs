@@ -14,6 +14,7 @@ import android.widget.ImageView
 
 import com.androidessence.materialdesignspeclibrary.R
 
+@Suppress("unused")
 /**
  * Adapter that displays a bunch of circular color choices.
  *
@@ -69,19 +70,23 @@ class CircleColorAdapter : BaseColorAdapter {
             val visibility = if (selectedPosition == adapterPosition) View.VISIBLE else View.GONE
             imgCheckView?.visibility = visibility
 
-            val colorVal = ContextCompat.getColor(colorView?.context, color!!)
-            val selector = createSelector(colorVal)
+            val context = colorView?.context
+            if (context != null && color != null) {
+                val colorVal = ContextCompat.getColor(context, color)
+                val selector = createSelector(colorVal)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val states = arrayOf(intArrayOf(-android.R.attr.state_pressed), intArrayOf(android.R.attr.state_pressed))
-                val colors = intArrayOf(shiftColor(colorVal), colorVal)
-                val rippleColors = ColorStateList(states, colors)
-                setBackgroundCompat(colorView!!, RippleDrawable(rippleColors, selector, null))
-            } else {
-                setBackgroundCompat(colorView!!, selector)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    val states = arrayOf(intArrayOf(-android.R.attr.state_pressed), intArrayOf(android.R.attr.state_pressed))
+                    val colors = intArrayOf(shiftColor(colorVal), colorVal)
+                    val rippleColors = ColorStateList(states, colors)
+                    setBackgroundCompat(colorView!!, RippleDrawable(rippleColors, selector, null))
+                } else {
+                    setBackgroundCompat(colorView!!, selector)
+                }
             }
         }
 
+        @Suppress("DEPRECATION")
         private fun setBackgroundCompat(view: View, d: Drawable) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 view.background = d

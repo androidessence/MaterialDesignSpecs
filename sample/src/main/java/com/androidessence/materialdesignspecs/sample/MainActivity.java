@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements ColorDialog.OnCol
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements ColorDialog.OnCol
         switch (item.getItemId()) {
             case R.id.action_circle_color_picker:
                 try {
-                    ColorDialog colorDialog = ColorDialog.Companion.newInstance(MaterialPalettes.INSTANCE.getColorsByLevel(MaterialPalettes.INSTANCE.getLEVEL_500()), selectedPos);
+                    ColorDialog colorDialog = ColorDialog.Companion.newInstance(MaterialPalettes.INSTANCE.getColorsByLevel(MaterialPalettes.LEVEL_500), selectedPos);
                     colorDialog.setOnColorSelectedListener(this);
                     colorDialog.setAdapter(new CircleColorAdapter(this));
                     colorDialog.setLayoutManager(new GridLayoutManager(MainActivity.this, 4));
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ColorDialog.OnCol
                 break;
             case R.id.action_square_color_picker:
                 try {
-                    ColorDialog colorDialog = ColorDialog.Companion.newInstance(MaterialPalettes.INSTANCE.getColorsByLevel(MaterialPalettes.INSTANCE.getLEVEL_500()), selectedPos);
+                    ColorDialog colorDialog = ColorDialog.Companion.newInstance(MaterialPalettes.INSTANCE.getColorsByLevel(MaterialPalettes.LEVEL_500), selectedPos);
                     colorDialog.setOnColorSelectedListener(this);
                     colorDialog.setAdapter(new SquareColorAdapter(this));
                     colorDialog.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
