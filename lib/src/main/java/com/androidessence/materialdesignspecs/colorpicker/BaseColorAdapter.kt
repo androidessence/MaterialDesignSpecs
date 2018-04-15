@@ -1,4 +1,4 @@
-package com.androidessence.materialdesignspecs
+package com.androidessence.materialdesignspecs.colorpicker
 
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
@@ -10,35 +10,45 @@ import android.widget.ImageView
 import com.androidessence.materialdesignspeclibrary.R
 
 /**
- * Base adapter class for displaying colors in a RecyclerView.
+ * Base adapter class for displaying a list of colors in a RecyclerView.
+ *
+ * @param[onColorSelectedListener] A callback to notify when a color is selected in the dialog.
+ * @param[colors] The list of color resources to display in the adapter.
+ * @param[initialPosition] The position in the list of [colors] to set as the initially selected one.
+ * @property[selectedPosition] The position in the list of [colors] that the user has selected, and
+ * is used to notify the [onColorSelectedListener].
  *
  * Created by adam.mcneilly on 5/17/17.
  */
-abstract class BaseColorAdapter(var onColorSelectedListener: ColorDialog.OnColorSelectedListener?) : RecyclerView.Adapter<BaseColorAdapter.BaseColorViewHolder>() {
+abstract class BaseColorAdapter @JvmOverloads constructor(
+        var onColorSelectedListener: ColorDialog.OnColorSelectedListener?,
+        var colors: List<Int> = ArrayList(),
+        initialPosition: Int = RecyclerView.NO_POSITION
+) : RecyclerView.Adapter<BaseColorAdapter.BaseColorViewHolder>() {
 
-    var colors: List<Int> = ArrayList()
-    var selectedPosition: Int = RecyclerView.NO_POSITION
+    var selectedPosition: Int = initialPosition
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    constructor(listener: ColorDialog.OnColorSelectedListener, colors: List<Int>) : this(listener) {
-        this.colors = colors
-    }
-
-    constructor(listener: ColorDialog.OnColorSelectedListener, colors: List<Int>, selectedPosition: Int) : this(listener, colors) {
-        this.selectedPosition = selectedPosition
-    }
-
+    /**
+     * Binds an individual color resource to the ViewHolder.
+     */
     override fun onBindViewHolder(holder: BaseColorViewHolder, position: Int) {
         holder.bindColor(colors[position])
     }
 
+    /**
+     * Determines the number of items to display in the adapter.
+     */
     override fun getItemCount(): Int {
         return colors.size
     }
 
+    /**
+     * Creates a ViewHolder for displaying a color resource.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseColorViewHolder {
         val context = parent.context
         val view = LayoutInflater.from(context).inflate(getRVItemLayout(), parent, false)
@@ -58,6 +68,8 @@ abstract class BaseColorAdapter(var onColorSelectedListener: ColorDialog.OnColor
 
     /**
      * Base ViewHolder for a color adapter.
+     *
+     * TODO: Don't make this an inner class.
      */
     @Suppress("LeakingThis") //TODO: Can we avoid this?
     abstract inner class BaseColorViewHolder(private val colorView: View) : RecyclerView.ViewHolder(colorView), View.OnClickListener {
@@ -71,15 +83,11 @@ abstract class BaseColorAdapter(var onColorSelectedListener: ColorDialog.OnColor
 
         /**
          * Abstract method to provide any custom initializations the user may want.
-
-         * @param view The itemView of this ViewHolder.
          */
         abstract fun initView(view: View)
 
         /**
-         * Binds a color to this ViewHolder.
-
-         * @param color The color to display.
+         * Binds a color resource to this ViewHolder.
          */
         open fun bindColor(color: Int?) {
             val colorRes = ContextCompat.getColor(colorView.context, color!!)

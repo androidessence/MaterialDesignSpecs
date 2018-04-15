@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka-android'
 
 ext {
     PUBLISH_GROUP_ID = 'com.androidessence'
@@ -24,6 +25,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dokka {
+        outputFormat = 'gfm'
+        outputDirectory = "kdocs"
+
+        skipEmptyPackages = false
     }
 }
 
