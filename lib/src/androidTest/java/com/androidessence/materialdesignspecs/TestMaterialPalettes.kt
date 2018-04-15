@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.androidessence.materialdesignspecs
 
 import android.test.AndroidTestCase
@@ -172,7 +174,12 @@ class TestMaterialPalettes : AndroidTestCase() {
      */
     fun testGetAllColors() {
         // The expected count is one for each accent_colors and all color levels, and each non_accent_color and non_accent_color_levels
-        val expectedCount = MaterialPalettes.ALL_COLOR_NAMES.size * MaterialPalettes.NON_ACCENT_COLOR_LEVELS.size + MaterialPalettes.COLORS_WITH_ACCENT_NAMES.size * MaterialPalettes.ACCENT_COLOR_LEVELS.size
+        // We also need to consider white/black/transparent
+        //TODO: There has to be a less hacky way of this.
+        val nonAccentCount = MaterialPalettes.ALL_COLOR_NAMES.size * MaterialPalettes.NON_ACCENT_COLOR_LEVELS.size
+        val accentCount = MaterialPalettes.COLORS_WITH_ACCENT_NAMES.size * MaterialPalettes.ACCENT_COLOR_LEVELS.size
+        val miscCount = 3
+        val expectedCount = nonAccentCount + accentCount + miscCount
 
         try {
             val colorList = MaterialPalettes.getAllColors()
@@ -194,7 +201,7 @@ class TestMaterialPalettes : AndroidTestCase() {
             Log.d("RandomTest", "Color size: $colorSize")
 
             for (i in 0 until colorSize) {
-                val color = MaterialPalettes.randomColorNonRepeating
+                val color = MaterialPalettes.getRandomColorNonRepeating()
                 if (valueCheck.contains(color)) {
                     Assert.fail()
                 } else {
@@ -220,7 +227,7 @@ class TestMaterialPalettes : AndroidTestCase() {
             }
 
             // Ensure it exists
-            val randomColor = MaterialPalettes.randomNonAccentColor!!
+            val randomColor = MaterialPalettes.getRandomNonAccentColor()
             Assert.assertTrue(nonAccentColorList.contains(randomColor))
         } catch (iae: IllegalAccessException) {
             Assert.fail()
@@ -254,7 +261,7 @@ class TestMaterialPalettes : AndroidTestCase() {
                 accentColorList.addAll(MaterialPalettes.getAccentColorsByName(name))
             }
             // Get random color, make sure it's in our accent list
-            val randomColor = MaterialPalettes.randomAccentColor
+            val randomColor = MaterialPalettes.getRandomAccentColor()
             Assert.assertTrue(accentColorList.contains(randomColor))
         } catch (iae: IllegalAccessException) {
             Assert.fail()
