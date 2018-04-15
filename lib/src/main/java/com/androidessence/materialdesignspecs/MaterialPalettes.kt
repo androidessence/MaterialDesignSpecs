@@ -9,14 +9,32 @@ import java.util.*
  *
  * Created by adammcneilly and mauker on 11/26/15.
  */
-@Suppress("MemberVisibilityCanPrivate", "unused", "MemberVisibilityCanBePrivate")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 object MaterialPalettes {
-    // Our variables
+    //region Private Properties & Helpers
     private const val PREFIX = "mds_"
     private const val SEPARATOR = "_"
     private const val ACCENT_SIGNIFIER = "_A"
 
-    // Color names
+    private const val MESSAGE_BAD_COLOR_NAME = "Invalid color name."
+    private const val MESSAGE_BAD_COLOR_LEVEL = "Invalid color level."
+
+    private fun sortFields(fields: Array<Field>) {
+        val anComp = AlphaNumComparator()
+
+        Arrays.sort(fields) { lhs, rhs ->
+            val lhss = lhs.name
+            val rhss = rhs.name
+
+            anComp.compare(lhss, rhss)
+        }
+    }
+
+    private val fields: Array<Field>
+        get() = R.color::class.java.fields
+    //endregion
+
+    //region Color Names & Levels
     const val RED = "red"
     const val PINK = "pink"
     const val PURPLE = "purple"
@@ -37,13 +55,6 @@ object MaterialPalettes {
     const val GREY = "grey"
     const val BLUE_GREY = "bluegrey"
 
-    val COLORS_WITH_ACCENT_NAMES = arrayOf(RED, PINK, PURPLE, DEEP_PURPLE, INDIGO, BLUE, LIGHT_BLUE, CYAN, TEAL, GREEN, LIGHT_GREEN, LIME, YELLOW, AMBER, ORANGE, DEEP_ORANGE)
-
-    val COLORS_WITHOUT_ACCENT_NAMES = arrayOf(BROWN, GREY, BLUE_GREY)
-
-    val ALL_COLOR_NAMES = arrayOf(RED, PINK, PURPLE, DEEP_PURPLE, INDIGO, BLUE, LIGHT_BLUE, CYAN, TEAL, GREEN, LIGHT_GREEN, LIME, YELLOW, AMBER, ORANGE, DEEP_ORANGE, BROWN, GREY, BLUE_GREY)
-
-    // Color levels
     const val LEVEL_50 = "50"
     const val LEVEL_100 = "100"
     const val LEVEL_200 = "200"
@@ -59,30 +70,26 @@ object MaterialPalettes {
     const val LEVEL_A400 = "A400"
     const val LEVEL_A700 = "A700"
 
+    @JvmStatic
+    val COLORS_WITH_ACCENT_NAMES = arrayOf(RED, PINK, PURPLE, DEEP_PURPLE, INDIGO, BLUE, LIGHT_BLUE, CYAN, TEAL, GREEN, LIGHT_GREEN, LIME, YELLOW, AMBER, ORANGE, DEEP_ORANGE)
+
+    @JvmStatic
+    val COLORS_WITHOUT_ACCENT_NAMES = arrayOf(BROWN, GREY, BLUE_GREY)
+
+    @JvmStatic
+    val ALL_COLOR_NAMES = arrayOf(RED, PINK, PURPLE, DEEP_PURPLE, INDIGO, BLUE, LIGHT_BLUE, CYAN, TEAL, GREEN, LIGHT_GREEN, LIME, YELLOW, AMBER, ORANGE, DEEP_ORANGE, BROWN, GREY, BLUE_GREY)
+
+    @JvmStatic
     val NON_ACCENT_COLOR_LEVELS = arrayOf(LEVEL_50, LEVEL_100, LEVEL_200, LEVEL_300, LEVEL_400, LEVEL_500, LEVEL_600, LEVEL_700, LEVEL_800, LEVEL_900)
 
+    @JvmStatic
     val ACCENT_COLOR_LEVELS = arrayOf(LEVEL_A100, LEVEL_A200, LEVEL_A400, LEVEL_A700)
 
+    @JvmStatic
     val COLOR_LEVELS = arrayOf(LEVEL_50, LEVEL_100, LEVEL_200, LEVEL_300, LEVEL_400, LEVEL_500, LEVEL_600, LEVEL_700, LEVEL_800, LEVEL_900, LEVEL_A100, LEVEL_A200, LEVEL_A400, LEVEL_A700)
+    //endregion
 
-    /**
-     * List of colors that have been randomly generated to avoid repeating colors.
-     */
-    private var randomList: MutableList<Int>? = null
-
-    /**
-     * List that contains all the colors.
-     */
-    private var allColors: MutableList<Int>? = null
-
-    /**
-     * Number of times we have created a random color. If we hit the limit we must start over.
-     */
-    private var randomCount: Int = 0
-
-    private const val MESSAGE_BAD_COLOR_NAME = "Invalid color name."
-    private const val MESSAGE_BAD_COLOR_LEVEL = "Invalid color level."
-
+    //region Get Colors By Name & Level
     /**
      * Builds a list of color resources for a Material Design color palette of a specific color.
      * NOTE: For Brown, Grey, or Blue Grey this will not return any accent colors.
@@ -94,6 +101,7 @@ object MaterialPalettes {
      */
     @Throws(IllegalAccessException::class)
     @JvmOverloads
+    @JvmStatic
     fun getColorsByName(colorName: String, getAccents: Boolean = true): List<Int> {
         // Verify color name
         if (!ALL_COLOR_NAMES.contains(colorName)) {
@@ -126,6 +134,7 @@ object MaterialPalettes {
      */
     @Throws(IllegalAccessException::class)
     @JvmOverloads
+    @JvmStatic
     fun getColorsByNames(colorNames: Array<String>?, getAccents: Boolean = true): List<Int> {
         if (colorNames == null) {
             throw IllegalArgumentException(MESSAGE_BAD_COLOR_NAME)
@@ -147,6 +156,7 @@ object MaterialPalettes {
      * @return The color resources for all accent colors of the given name.
      */
     @Throws(IllegalAccessException::class)
+    @JvmStatic
     fun getAccentColorsByName(colorName: String): List<Int> {
         // Verify input
         if (!COLORS_WITH_ACCENT_NAMES.contains(colorName)) {
@@ -175,6 +185,7 @@ object MaterialPalettes {
      * @throws IllegalAccessException The resource could not be accessed.
      */
     @Throws(IllegalAccessException::class)
+    @JvmStatic
     fun getColorsByLevel(colorLevel: String): List<Int> {
         // Verify color level
         if (!COLOR_LEVELS.contains(colorLevel)) {
@@ -193,6 +204,18 @@ object MaterialPalettes {
 
         return colorList
     }
+    //endregion
+
+    //region Random
+    /**
+     * List of colors that have been randomly generated to avoid repeating colors.
+     */
+    private var randomList: MutableList<Int>? = null
+
+    /**
+     * Number of times we have created a random color. If we hit the limit we must start over.
+     */
+    private var randomCount: Int = 0
 
     /**
      * Retrieves a random material design color.
@@ -200,14 +223,13 @@ object MaterialPalettes {
      * @return A color resource for one of the material design colors.
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
-    // Get random
-    val randomColor: Int?
-        @Throws(IllegalAccessException::class)
-        get() {
-            val colorList = getAllColors()
-            val random = Random()
-            return colorList[random.nextInt(colorList.size)]
-        }
+    @Throws(IllegalAccessException::class)
+    @JvmStatic
+    fun getRandomColor(): Int {
+        val colorList = getAllColors()
+        val random = Random()
+        return colorList[random.nextInt(colorList.size)]
+    }
 
     /**
      * Retrieves a random color from the palettes that is not an accent color.
@@ -215,18 +237,16 @@ object MaterialPalettes {
      * @return A color resource for one of the material design colors.
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
-    // For each color, add its non-accent colors to list
-    // Return a random one
-    val randomNonAccentColor: Int?
-        @Throws(IllegalAccessException::class)
-        get() {
-            val colorList = ArrayList<Int>()
-            for (color in ALL_COLOR_NAMES) {
-                colorList.addAll(getColorsByName(color, false))
-            }
-            val random = Random()
-            return colorList[random.nextInt(colorList.size)]
+    @Throws(IllegalAccessException::class)
+    @JvmStatic
+    fun getRandomNonAccentColor(): Int {
+        val colorList = ArrayList<Int>()
+        for (color in ALL_COLOR_NAMES) {
+            colorList.addAll(getColorsByName(color, false))
         }
+        val random = Random()
+        return colorList[random.nextInt(colorList.size)]
+    }
 
     /**
      * Retrieves a random accent color from the palettes.
@@ -234,18 +254,16 @@ object MaterialPalettes {
      * @return A color resource for one of the material design accent colors.
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
-    // For each accent level, add its colors to the list.
-    // Return a random one
-    val randomAccentColor: Int?
-        @Throws(IllegalAccessException::class)
-        get() {
-            val colorList = ArrayList<Int>()
-            for (level in ACCENT_COLOR_LEVELS) {
-                colorList.addAll(getColorsByLevel(level))
-            }
-            val random = Random()
-            return colorList[random.nextInt(colorList.size)]
+    @Throws(IllegalAccessException::class)
+    @JvmStatic
+    fun getRandomAccentColor(): Int {
+        val colorList = ArrayList<Int>()
+        for (level in ACCENT_COLOR_LEVELS) {
+            colorList.addAll(getColorsByLevel(level))
         }
+        val random = Random()
+        return colorList[random.nextInt(colorList.size)]
+    }
 
     /**
      * Retrieves a random material design color for a given level.
@@ -255,6 +273,7 @@ object MaterialPalettes {
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
     @Throws(IllegalAccessException::class)
+    @JvmStatic
     fun getRandomColorByLevel(colorLevel: String): Int? {
         // Get all colors for this level
         // Input check is done in this function.
@@ -271,15 +290,17 @@ object MaterialPalettes {
      * @return A color resource for a random Material Design color.
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
-    val randomColorNonRepeating: Int?
-        @Throws(IllegalAccessException::class)
-        get() {
-            if (randomList == null || randomList!!.isEmpty() || randomCount >= (randomList?.size ?: 0)) {
-                initColorRandomizer()
-            }
-            val colorIndex = randomList!![randomCount++]
-            return getAllColors()[colorIndex]
+    @Throws(IllegalAccessException::class)
+    @JvmStatic
+    fun getRandomColorNonRepeating(): Int {
+        if (randomList == null || randomList!!.isEmpty() || randomCount >= (randomList?.size
+                        ?: 0)) {
+            initColorRandomizer()
         }
+
+        val colorIndex = randomList!![randomCount++]
+        return getAllColors()[colorIndex]
+    }
 
     /**
      * Retrieves a random material design color for the given shade.
@@ -291,6 +312,7 @@ object MaterialPalettes {
      */
     @Throws(IllegalAccessException::class)
     @JvmOverloads
+    @JvmStatic
     fun getRandomColorByName(colorName: String, useAccents: Boolean = true): Int? {
         // Get all colors for this name.
         // Input check is in this function.
@@ -308,6 +330,7 @@ object MaterialPalettes {
      * @throws IllegalAccessException If a resource cannot be accessed.
      */
     @Throws(IllegalAccessException::class)
+    @JvmStatic
     fun getRandomColorWithLimits(acceptedColorNames: Array<String>): Int? {
         // First do error checking
         if (!Arrays.asList(*ALL_COLOR_NAMES).containsAll(Arrays.asList(*acceptedColorNames))) {
@@ -324,32 +347,6 @@ object MaterialPalettes {
         // Return a random color from the list.
         val random = Random()
         return colorList[random.nextInt(colorList.size)]
-    }
-
-    /**
-     * Retrieves all material design palette colors.
-     *
-     * @return A list of color resources for all available material design colors.
-     */
-    @Throws(IllegalAccessException::class)
-    fun getAllColors(): List<Int> {
-        if (allColors == null) {
-            allColors = ArrayList()
-        }
-
-        if (allColors?.isNotEmpty() == true) {
-            return allColors as MutableList<Int>
-        }
-
-        // Add all colors that start with our prefix
-        for (field in fields) {
-            val key = field.name
-            if (key.startsWith(PREFIX)) {
-                allColors?.add(field.getInt(null))
-            }
-        }
-
-        return allColors as MutableList<Int>
     }
 
     /**
@@ -374,18 +371,39 @@ object MaterialPalettes {
         randomList?.shuffle()
         randomCount = 0
     }
+    //endregion
 
-    private fun sortFields(fields: Array<Field>) {
-        val anComp = AlphaNumComparator()
+    //region All Colors
+    /**
+     * List that contains all the colors.
+     */
+    private var allColors: MutableList<Int>? = null
 
-        Arrays.sort(fields) { lhs, rhs ->
-            val lhss = lhs.name
-            val rhss = rhs.name
-
-            anComp.compare(lhss, rhss)
+    /**
+     * Retrieves all material design palette colors.
+     *
+     * @return A list of color resources for all available material design colors.
+     */
+    @Throws(IllegalAccessException::class)
+    @JvmStatic
+    fun getAllColors(): List<Int> {
+        if (allColors == null) {
+            allColors = ArrayList()
         }
-    }
 
-    val fields: Array<Field>
-        get() = R.color::class.java.fields
+        if (allColors?.isNotEmpty() == true) {
+            return allColors as MutableList<Int>
+        }
+
+        // Add all colors that start with our prefix
+        for (field in fields) {
+            val key = field.name
+            if (key.startsWith(PREFIX)) {
+                allColors?.add(field.getInt(null))
+            }
+        }
+
+        return allColors as MutableList<Int>
+    }
+    //endregion
 }
