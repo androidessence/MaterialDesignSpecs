@@ -110,6 +110,7 @@ class ColorDialog : DialogFragment() {
          * *
          * @return A ColorDialog the user can display.
          */
+        @JvmStatic
         fun newInstance(colorList: List<Int>, selectedPos: Int): ColorDialog {
             val args = Bundle()
 
