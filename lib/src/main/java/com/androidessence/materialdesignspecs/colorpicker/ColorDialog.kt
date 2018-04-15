@@ -1,4 +1,4 @@
-package com.androidessence.materialdesignspecs
+package com.androidessence.materialdesignspecs.colorpicker
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -9,34 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.androidessence.materialdesignspeclibrary.R
 
-@Suppress("MemberVisibilityCanPrivate")
 /**
- * Dialog fragment that displays a list of colors.
+ * Dialog fragment that displays a list of colors resources.
  *
+ * @property[onColorSelectedListener] A callback to notify anytime a color is selected.
+ * @property[layoutManager] The layout manager applied to the RecyclerView in the dialog. If the user
+ * never supplies this, we'll use a GridLayoutManager.
+ * @property[columnCount] The number of columns in the grid of colors. Used for the default [layoutManager].
+ * @property[adapter] An adapter to display our list of color resources. Defaults to a [CircleColorAdapter] if not supplied.
  *
  * Created by adam.mcneilly on 5/8/17.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class ColorDialog : DialogFragment() {
-
-    /**
-     * The callback for when a color is selected.
-     */
     var onColorSelectedListener: OnColorSelectedListener? = null
-
-    /**
-     * The LayoutManager for the RecyclerView.
-     */
     var layoutManager: RecyclerView.LayoutManager? = null
-
-    /**
-     * The number of columns in the grid.
-     */
-    @Suppress("MemberVisibilityCanBePrivate")
     var columnCount: Int = 0
-
-    /**
-     * The adapter to display the colors with.
-     */
     var adapter: BaseColorAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,7 +35,7 @@ class ColorDialog : DialogFragment() {
         val selectedPos = arguments?.getInt(ARG_SELECTED_COLOR_POSITION) ?: -1
 
         if (adapter == null) {
-            adapter = CircleColorAdapter(colorList, colorSelectedListener, selectedPos)
+            adapter = CircleColorAdapter(colorSelectedListener, colorList, selectedPos)
         } else {
             adapter?.colors = colorList
             adapter?.selectedPosition = selectedPos
@@ -71,15 +59,15 @@ class ColorDialog : DialogFragment() {
     interface OnColorSelectedListener {
         /**
          * Called when a color is selected in the dialog.
-         * @param selectedPos The selected position of the color.
-         * *
-         * @param color The color resource that was selected.
          */
         fun onColorSelected(selectedPos: Int, color: Int?)
     }
 
     /**
-     * Listener that this dialog uses, which redirects the callback to any onColorSelectedListener the user applied.
+     * Listener that this dialog uses, which redirects the callback to any [onColorSelectedListener] the user applied, and dismisses the dialog.
+     *
+     * We use this so that we can instantiate a listener right away, but proxy the calls back to [onColorSelectedListener],
+     * which the user may have defined later.
      */
     private val colorSelectedListener = object : OnColorSelectedListener {
 
@@ -91,24 +79,14 @@ class ColorDialog : DialogFragment() {
     }
 
     companion object {
-
-        /**
-         * Argument key for the list of colors to display.
-         */
         private const val ARG_COLOR_LIST = "colorList"
-
-        /**
-         * Argument key for the position of the selected color.
-         */
         private const val ARG_SELECTED_COLOR_POSITION = "colorPosition"
 
         /**
          * Creates an instance of the ColorDialog.
-         * @param colorList The list of colors to display.
-         * *
-         * @param selectedPos The selected position for the color.
-         * *
-         * @return A ColorDialog the user can display.
+         *
+         * @param[colorList] The color resourcese to display in the dialog.
+         * @param[selectedPos] The position in the list to set as the initially selected color.
          */
         @JvmStatic
         fun newInstance(colorList: List<Int>, selectedPos: Int): ColorDialog {

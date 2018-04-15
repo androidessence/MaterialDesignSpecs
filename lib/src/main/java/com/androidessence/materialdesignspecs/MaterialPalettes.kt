@@ -91,13 +91,10 @@ object MaterialPalettes {
 
     //region Get Colors By Name & Level
     /**
-     * Builds a list of color resources for a Material Design color palette of a specific color.
-     * NOTE: For Brown, Grey, or Blue Grey this will not return any accent colors.
+     * Builds a list of color resources for a Material Design color palette of a specific color. The
+     * caller has the ability to exclude accent colors using the [getAccents] parameter.
      *
-     * @param colorName The name of the color to build the palette for.
-     * @param getAccents A flag variable that will either fetch the accent level colors or not.
-     * @return The list of relevant color resources for the specific color name.
-     * @throws IllegalAccessException The resource could not be accessed.
+     * NOTE: For Brown, Grey, or Blue Grey this will not return any accent colors.
      */
     @Throws(IllegalAccessException::class)
     @JvmOverloads
@@ -127,10 +124,8 @@ object MaterialPalettes {
     /**
      * Retrieves a list of colors for multiple color names.
      *
-     * @param colorNames The names of the colors to return.
-     * @param getAccents A flag variable that will either fetch the accent level colors or not.
-     * @return An array list of color resources for each of the colors given.
-     * @throws IllegalAccessException Thrown if any resources cannot be accessed.
+     * TODO: Consider if we can consolidate this and `getColorsByName` somehow.
+     * @see getColorsByName
      */
     @Throws(IllegalAccessException::class)
     @JvmOverloads
@@ -150,10 +145,7 @@ object MaterialPalettes {
     }
 
     /**
-     * Builds a list of color resources for the Accents of a given color name.
-     *
-     * @param colorName The color to retrieve accent shades for.
-     * @return The color resources for all accent colors of the given name.
+     * Builds a list of color resources for the accents of a given color name.
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
@@ -179,10 +171,6 @@ object MaterialPalettes {
     /**
      * Builds a list of color resources for a Material Design color palette of a specific color level.
      * NOTE: For accent levels, this will not return Brown, Grey, or Blue Grey.
-     *
-     * @param colorLevel The level of the colors to build the palette with.
-     * @return The list of relevant color resources for the specific color level.
-     * @throws IllegalAccessException The resource could not be accessed.
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
@@ -218,10 +206,7 @@ object MaterialPalettes {
     private var randomCount: Int = 0
 
     /**
-     * Retrieves a random material design color.
-     *
-     * @return A color resource for one of the material design colors.
-     * @throws IllegalAccessException If a resource cannot be accessed.
+     * Retrieves a random material design color from any palette.
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
@@ -233,9 +218,6 @@ object MaterialPalettes {
 
     /**
      * Retrieves a random color from the palettes that is not an accent color.
-     *
-     * @return A color resource for one of the material design colors.
-     * @throws IllegalAccessException If a resource cannot be accessed.
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
@@ -249,10 +231,7 @@ object MaterialPalettes {
     }
 
     /**
-     * Retrieves a random accent color from the palettes.
-     *
-     * @return A color resource for one of the material design accent colors.
-     * @throws IllegalAccessException If a resource cannot be accessed.
+     * Retrieves a random accent color from the palettes that support accents.
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
@@ -266,11 +245,8 @@ object MaterialPalettes {
     }
 
     /**
-     * Retrieves a random material design color for a given level.
-     *
-     * @param colorLevel The color level to get a color for.
-     * @return A color resource for a random color of the given level.
-     * @throws IllegalAccessException If a resource cannot be accessed.
+     * Retrieves a random material design color for a given level. If this is an accent level,
+     * certain colors will be excluded from the result.
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
@@ -287,8 +263,7 @@ object MaterialPalettes {
      * Determines a random color that does not repeat until a color from all different palettes has
      * been returned.
      *
-     * @return A color resource for a random Material Design color.
-     * @throws IllegalAccessException If a resource cannot be accessed.
+     * @see randomList
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
@@ -303,12 +278,11 @@ object MaterialPalettes {
     }
 
     /**
-     * Retrieves a random material design color for the given shade.
+     * Retrieves a random material design color for the given name. The caller has the ability to
+     * decide if accent colors can be excluded using the [useAccents] parameter.
      *
-     * @param colorName The name of the color to get a shade for.
-     * @param useAccents Whether or not to include accent shades in the random selection.
-     * @return A color resource for a randomly generated shade of the specified color.
-     * @throws IllegalAccessException If a resource cannot be accessed.
+     * TODO: We want to add a companion getAccents to [getRandomColorWithLimits] as well,
+     * and also rename that to be more consistent with this one.
      */
     @Throws(IllegalAccessException::class)
     @JvmOverloads
@@ -323,16 +297,13 @@ object MaterialPalettes {
     }
 
     /**
-     * Retrieves a random color from a list of accepted values.
-     *
-     * @param acceptedColorNames The color names that are acceptable for the random color returned.
-     * @return A color resource for a random Material Design color.
-     * @throws IllegalAccessException If a resource cannot be accessed.
+     * Retrieves a random color from a list of accepted color names.
      */
     @Throws(IllegalAccessException::class)
     @JvmStatic
     fun getRandomColorWithLimits(acceptedColorNames: Array<String>): Int? {
         // First do error checking
+        //TODO: Convert color names and such to lists, to avoid this stuff.
         if (!Arrays.asList(*ALL_COLOR_NAMES).containsAll(Arrays.asList(*acceptedColorNames))) {
             throw IllegalArgumentException(MESSAGE_BAD_COLOR_NAME)
         }

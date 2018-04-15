@@ -9,10 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.androidessence.materialdesignspecs.CircleColorAdapter;
-import com.androidessence.materialdesignspecs.ColorDialog;
+import com.androidessence.materialdesignspecs.colorpicker.CircleColorAdapter;
+import com.androidessence.materialdesignspecs.colorpicker.ColorDialog;
 import com.androidessence.materialdesignspecs.MaterialPalettes;
-import com.androidessence.materialdesignspecs.SquareColorAdapter;
+import com.androidessence.materialdesignspecs.colorpicker.SquareColorAdapter;
 
 public class MainActivity extends AppCompatActivity implements ColorDialog.OnColorSelectedListener {
 

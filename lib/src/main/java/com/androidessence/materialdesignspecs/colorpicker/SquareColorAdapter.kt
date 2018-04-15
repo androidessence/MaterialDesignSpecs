@@ -1,7 +1,8 @@
-package com.androidessence.materialdesignspecs
+package com.androidessence.materialdesignspecs.colorpicker
 
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 
@@ -11,18 +12,15 @@ import com.androidessence.materialdesignspeclibrary.R
 /**
  * Adapter that displays a bunch of square color choices.
  *
- *
  * Created by ankitagrawal on 5/15/17.
  */
-class SquareColorAdapter : BaseColorAdapter {
+class SquareColorAdapter @JvmOverloads constructor(
+        listener: ColorDialog.OnColorSelectedListener?,
+        colors: List<Int> = ArrayList(),
+        initialPosition: Int = RecyclerView.NO_POSITION
+) : BaseColorAdapter(listener, colors, initialPosition) {
 
-    constructor(listener: ColorDialog.OnColorSelectedListener) : super(listener)
-
-    constructor(colors: List<Int>, listener: ColorDialog.OnColorSelectedListener) : super(listener, colors)
-
-    constructor(colors: List<Int>, listener: ColorDialog.OnColorSelectedListener, selectedPos: Int) : super(listener, colors, selectedPos)
-
-    override fun getViewHolder(view: View): BaseColorAdapter.BaseColorViewHolder {
+    override fun getViewHolder(view: View): BaseColorViewHolder {
         return SquareColorViewHolder(view)
     }
 
@@ -31,7 +29,12 @@ class SquareColorAdapter : BaseColorAdapter {
         return R.layout.list_item_color
     }
 
-    inner class SquareColorViewHolder(view: View) : BaseColorAdapter.BaseColorViewHolder(view) {
+    /**
+     * ViewHolder for displaying a color resource as a square.
+     *
+     * TODO: Don't make this an inner class.
+     */
+    inner class SquareColorViewHolder(view: View) : BaseColorViewHolder(view) {
         private var colorView: View? = null
         private var imgCheckView: ImageView? = null
 

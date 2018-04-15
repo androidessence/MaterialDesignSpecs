@@ -1,4 +1,4 @@
-package com.androidessence.materialdesignspecs
+package com.androidessence.materialdesignspecs.colorpicker
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,35 +9,39 @@ import android.graphics.drawable.StateListDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 
 import com.androidessence.materialdesignspeclibrary.R
 
-@Suppress("unused")
 /**
- * Adapter that displays a bunch of circular color choices.
- *
+ * Extension of [BaseColorAdapter] that's used to display a list of color resources as circular
+ * items.
  *
  * Created by ankitagrawal on 5/15/17.
  */
-class CircleColorAdapter : BaseColorAdapter {
-
-    constructor(listener: ColorDialog.OnColorSelectedListener) : super(listener)
-
-    constructor(colors: List<Int>, listener: ColorDialog.OnColorSelectedListener) : super(listener, colors)
-
-    constructor(colors: List<Int>, listener: ColorDialog.OnColorSelectedListener, selectedPos: Int) : super(listener, colors, selectedPos)
+@Suppress("unused")
+class CircleColorAdapter @JvmOverloads constructor(
+        listener: ColorDialog.OnColorSelectedListener?,
+        colors: List<Int> = ArrayList(),
+        initialPosition: Int = RecyclerView.NO_POSITION
+) : BaseColorAdapter(listener, colors, initialPosition) {
 
     override fun getRVItemLayout(): Int {
         return R.layout.circle_list_item_color
     }
 
-    override fun getViewHolder(view: View): BaseColorAdapter.BaseColorViewHolder {
+    override fun getViewHolder(view: View): BaseColorViewHolder {
         return CircleColorViewHolder(view)
     }
 
-    inner class CircleColorViewHolder(view: View) : BaseColorAdapter.BaseColorViewHolder(view) {
+    /**
+     * RecyclerView.ViewHolder for displaying a color resource in a circle.
+     *
+     * TODO: Don't make this an inner class.
+     */
+    inner class CircleColorViewHolder(view: View) : BaseColorViewHolder(view) {
         private var colorView: View? = null
         private var imgCheckView: ImageView? = null
 

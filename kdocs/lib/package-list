@@ -1,0 +1,5 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+com.androidessence.materialdesignspecs
+com.androidessence.materialdesignspecs.colorpicker
