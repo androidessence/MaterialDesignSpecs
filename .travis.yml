@@ -44,4 +44,4 @@ before_script:
 
 script:
   - chmod +x gradlew
-  - ./gradlew clean build test cAT
+  - ./gradlew clean build installDebug test cAT
