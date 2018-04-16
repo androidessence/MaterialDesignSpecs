@@ -7,7 +7,7 @@ android:
     - build-tools-27.0.3
     - extra-android-m2repository
     - extra-android-support
-    - sys-img-armeabi-v7a-addon-google_apis-google-22
+    - sys-img-armeabi-v7a-google_apis-google-22
     - android-27
     - android-22
     
