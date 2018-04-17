@@ -33,15 +33,16 @@ android:
   - android-$ANDROID_API_LEVEL
   - android-$ANDROID_EMU_API_LEVEL
   - extra-android-support
+  - sys-img-$ANDROID_ABI-google_apis-$ANDROID_API_LEVEL
   - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
 
 before_script:
   - echo -e "Host github.com\n\tHostName github.com\n\tUser git\n\tIdentityFile ~/.ssh/id_travisci\n" >> ~/.ssh/config
-  - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI
+  - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi $ANDROID_ABI --tag google_apis
   - emulator -avd test -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
 script:
   - chmod +x gradlew
-  - ./gradlew clean build installDebug test cAT
+  - ./gradlew clean build test cAT
